@@ -31,7 +31,7 @@ all : $(LIB)
 # 3. 生成动态库文件
 $(LIB) : $(OBJS)
 	rm -f $@
-	g++ -shared -o $@ $(OBJS)
+	g++ -shared -o $@ $(OBJS) $(LIB_PATH) $(OPENCV_LIB)
 	rm -f $(OBJS)
 
 tags :
