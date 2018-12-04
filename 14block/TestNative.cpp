@@ -319,9 +319,9 @@ JNIEXPORT jstring JNICALL Java_com_fengneng_controller_TestNative_testNative
 	ct.clear();
 	Get_Color_Space(src, ct);
 	if (ct.size() != COLORNUM) {
-		//cout << "Can't Detect the QRCode!" << endl;
+		cout << ct.size() << endl;
 		//continue;
-		imshow("Image",src);
+		//imshow("Image",src);
 	}
 	else{
 		vector<vector<double>> blk;

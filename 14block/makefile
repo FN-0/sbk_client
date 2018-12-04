@@ -20,7 +20,7 @@ INCLUDE_PATH = $(OPENCV_INC)
 LIB_PATH = -L $(OPENCV_LIB_ROOT)
 
 # 依赖的lib名称
-OPENCV_LIB = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect -lopencv_ml  
+OPENCV_LIB = -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_objdetect -lopencv_ml -lopencv_imgcodecs
 
 all : $(LIB)
 
