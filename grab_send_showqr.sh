@@ -39,7 +39,7 @@ mv ${image_name} images/
 cd images/
 echo "Start uploading."
 ../upload_img ${image_name}
-#echo $?
+# 使用程序返回值作为上传成功或失败的依据
 if [ $? -eq 2 ]; then
 	cp ${image_name} ../upload_failed/
 	cd ..
