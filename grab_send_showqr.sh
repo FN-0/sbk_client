@@ -1,14 +1,17 @@
 #!/bin/bash
 # 获取当前时间
 datetime=$(date +%Y%m%d%H%M%S)
-# 获取mac地址
-mac_addr="`cat /sys/class/net/wlan0/address`"
+# 获取mac地址并去掉冒号
+mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
+# 图片名为mac地址+该程序运行时间
 image_name=${mac_addr}${datetime}.jpg
+# 客户端存放位置（待更改）
 clientpath="/home/pi/14src/"
 
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
+	exit 0
 fi
 cd ${clientpath}
 
@@ -33,17 +36,22 @@ if [ ! -f ${image_name} ]; then
 	exit 0
 fi
 mv ${image_name} images/
+cd images/
 echo "Start uploading."
-./upload_img ./images/${image_name}
+../upload_img ${image_name}
 #echo $?
 if [ $? -eq 2 ]; then
-	cp ./images/${image_name} upload_failed/
+	cp ${image_name} ../upload_failed/
+	cd ..
 	echo "upload failed"
 	# show "upload failed" with qr code
 	./qrcode_upload_failed
+	# feh 显示二维码
 	feh -F qr.bmp &
+	# 10分钟后自动关机
 	shutdown +10 "System will shutdown after 10 minutes"
 elif [ $? -eq 0 ]; then
+	cd ..
 	# display qr code
 	./qrcode
 	feh -F qr.bmp &

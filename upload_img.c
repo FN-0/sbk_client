@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
   curl_formadd(&formpost,  
                &lastptr,  
                CURLFORM_COPYNAME, "filename", 
-               CURLFORM_COPYCONTENTS, "00:0c:29:1a:cc:0a20181120223321.jpg",  
+               CURLFORM_COPYCONTENTS, argv[1],  
                CURLFORM_END);  
   
   /* Fill in the submit field too, even if this is rarely needed */  
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
                &lastptr,  
                CURLFORM_COPYNAME, "picture",  
                /* TODO: using argv[1] */
-               CURLFORM_FILE, "00:0c:29:1a:cc:0a20181120223321.jpg",
+               CURLFORM_FILE, argv[1],
                CURLFORM_CONTENTTYPE, "image/jpeg",  
                CURLFORM_END);  
  
