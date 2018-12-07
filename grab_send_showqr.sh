@@ -37,6 +37,7 @@ if [ ! -f ${image_name} ]; then
 fi
 mv ${image_name} images/
 cd images/
+sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
 echo "Start uploading."
 ../upload_img ${image_name}
 # 使用程序返回值作为上传成功或失败的依据
