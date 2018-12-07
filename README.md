@@ -8,9 +8,9 @@
 ### 功能说明
 + 该客户端程序依次实现了拍照上传显示二维码的过程。
 + 拍照使用了[twam的v4l2grab](https://github.com/twam/v4l2grab)实现。具体使用参考该作者写的文档。
-+ 上传图片使用了libcurl库并使用post方法实现。修改请参考官方文档。
++ 上传图片使用了[libcurl](https://curl.haxx.se/libcurl/)库并使用[post](https://www.wikiwand.com/en/POST_(HTTP))方法实现。修改请参考官方文档。
 + 二维码生成程序使用了[rsky的qrcode](https://github.com/rsky/qrcode)，[使用参考](http://www.voidcn.com/article/p-umkmzkrw-bee.html)。
-+ 以上三个功能流程均使用[shell script](https://www.wikiwand.com/zh-hans/Shell%E8%84%9A%E6%9C%AC)控制。
++ 以上三个功能流程均使用[*shell script*](https://www.wikiwand.com/zh-hans/Shell%E8%84%9A%E6%9C%AC)控制。
 
 ### 使用方法
 + 项目git仓库` git@121.40.169.248:/home/14src.git `，使用公司现有的服务器作为私有git仓库。参考：[搭建Git服务器](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000)
