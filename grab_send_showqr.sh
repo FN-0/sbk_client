@@ -6,7 +6,7 @@ mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
 # 图片名为mac地址+该程序运行时间
 image_name=${mac_addr}${datetime}.jpg
 # 客户端存放位置（待更改）
-clientpath="/home/pi/14src/"
+clientpath="/home/pi/sbk_client/"
 
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
