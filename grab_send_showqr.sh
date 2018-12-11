@@ -54,7 +54,7 @@ if [ $? -eq 2 ]; then
 elif [ $? -eq 0 ]; then
 	cd ..
 	# display qr code
-	./qrcode
+	./qrcode ${mac_addr} ${datetime}
 	feh -F qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
