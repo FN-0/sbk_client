@@ -9,12 +9,15 @@ int main(int argc, char *argv[])
   CURLcode res;
  
   int ret;
+  char *url;
 
   struct curl_httppost *formpost=NULL;
   struct curl_httppost *lastptr=NULL;
   struct curl_slist *headerlist=NULL;
   static const char buf[] = "Expect:";
  
+  sprintf(url, "http://url:8080/picture/imageUpload");
+
   curl_global_init(CURL_GLOBAL_ALL);
 
   curl_formadd(&formpost,  
@@ -38,7 +41,7 @@ int main(int argc, char *argv[])
   headerlist = curl_slist_append(headerlist, buf);
   if(curl) {
     /* what URL that receives this POST */ 
-    curl_easy_setopt(curl, CURLOPT_URL, "http://192.168.43.138:8080/imageUpload?sid=2");
+    curl_easy_setopt(curl, CURLOPT_URL, url);
     if ( (argc == 2) && (!strcmp(argv[1], "noexpectheader")) )
       /* only disable 100-continue header if explicitly requested */ 
       curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerlist);
