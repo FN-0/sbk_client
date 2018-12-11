@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	string blkRst = "上传失败\n";
+	string blkRst = "upload failed";
 	int errcode = QR_ERR_NONE;
 	QRCode* p = qrInit(10, QR_EM_8BIT, 2, -1, &errcode);
 	if (p == NULL) {
