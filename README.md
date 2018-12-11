@@ -20,7 +20,7 @@
 [6]:https://www.wikiwand.com/zh-hans/Shell%E8%84%9A%E6%9C%AC
 
 ### 使用方法
-+ 项目git仓库` https://funeng@bitbucket.org/funeng/sbk_clinet.git `，使用公司现有的服务器作为私有git仓库。参考：[搭建Git服务器][7]。
++ 项目git仓库` https://funeng@bitbucket.org/funeng/sbk_clinet.git `，使用`bitbucket`作为私有git仓库。
 + 在`/home`目录下使用` git clone https://funeng@bitbucket.org/funeng/sbk_clinet.git `把项目克隆至树莓派上，当然需要在安装[git][8]后。
 + 克隆至树莓派后注意`grab_send_showqr.sh`文件中的**第9行**，你可以任意修改该客户端存放的位置，但请注意修改后对其他程序的影响。
 + `grab_send_showqr.sh`文件中的**第28行**为拍照命令，如需要修改参数请看作者文档。
@@ -37,7 +37,6 @@
 + 如以上步骤都无错完成，则可以执行*shell script*来进行完整测试。
 + 如测试无误，则把*shell script*添加至开机自动运行。[几种设置树莓派开机自启的方法][12]，我在使用中发现文章的**第3种方法**在实际应用中表现最好。
 
-[7]:https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137583770360579bc4b458f044ce7afed3df579123eca000
 [8]:https://git-scm.com/
 [9]:https://github.com/twam/v4l2grab/wiki/Installation
 [10]:https://wiki.archlinux.org/index.php/Feh_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
