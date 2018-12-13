@@ -21,8 +21,6 @@
 [6]:https://www.wikiwand.com/zh-hans/Shell%E8%84%9A%E6%9C%AC
 
 ### 使用方法
-+ 项目git仓库` https://funeng@bitbucket.org/funeng/sbk_clinet.git `，使用`bitbucket`作为私有git仓库。
-+ 在`/home`目录下使用` git clone https://funeng@bitbucket.org/funeng/sbk_clinet.git `把项目克隆至树莓派上，当然需要在安装[git][8]后。
 + 克隆至树莓派后注意`grab_send_showqr.sh`文件中的**第9行**，你可以任意修改该客户端存放的位置，但请注意修改后对其他程序的影响。
 + `grab_send_showqr.sh`文件中的**第28行**为拍照命令，如需要修改参数请看作者文档。
 + 在`/home`目录下使用`git clone https://github.com/twam/v4l2grab`克隆项目。并进行[编译安装][9]。并把`v4l2grab`目录内的可执行文件`v4l2grab`放入`sbk_client`目录中。
