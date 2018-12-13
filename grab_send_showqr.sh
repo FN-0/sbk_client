@@ -61,12 +61,12 @@ elif [ $? -eq 0 ]; then
 	reupload_images=`ls upload_failed/`
 	if [ ! `ls upload_failed/ $*|wc -w` -eq 0 ]; then 
 		for reup_img in ${reupload_images}; do
-		# re-upload them!
-		./upload_img ${reup_img}
-		if [ $? -eq 0 ]; then
-			rm ${reup_img}
-		fi
-  	done
+			# re-upload them!
+			./upload_img ${reup_img}
+			if [ $? -eq 0 ]; then
+				rm ${reup_img}
+			fi
+  		done
 	fi
 	# shutdown in few minutes
 	shutdown +5 "System will shutdown after 5 minutes"
