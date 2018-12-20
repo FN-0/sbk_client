@@ -21,8 +21,8 @@
 [6]:https://www.wikiwand.com/zh-hans/Shell%E8%84%9A%E6%9C%AC
 
 ### 使用方法
-+ 克隆至树莓派后注意`grab_send_showqr.sh`文件中的**第9行**，你可以任意修改该客户端存放的位置，但请注意修改后对其他程序的影响。
-+ `grab_send_showqr.sh`文件中的**第28行**为拍照命令，如需要修改参数请看作者文档。
++ 克隆至树莓派后注意`grab_send_showqr.sh`文件中的**第12行**，你可以任意修改该客户端存放的位置，但请注意修改后对其他程序的影响。
++ `grab_send_showqr.sh`文件中的**第31行**为拍照命令，如需要修改参数请看作者文档。
 + 在`/home`目录下使用`git clone https://github.com/twam/v4l2grab`克隆项目。并进行[编译安装][9]。并把`v4l2grab`目录内的可执行文件`v4l2grab`放入`sbk_client`目录中。
 + 分别进入`qrcode_src`目录与`qrcode_failed_src`目录，并分别执行`g++ *.cpp *.c -o qrcode`与`g++ *.cpp *.c -o qrcode_upload_failed`。
 + 把以上两个目录里编译成功的可执行文件复制到上一级目录即`sbk_client`中。
