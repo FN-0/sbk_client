@@ -1,11 +1,14 @@
 #!/bin/bash
+
+# !!!修改时请注意使用'LF换行'!!!
+
 # 获取当前时间
 datetime=$(date +%Y%m%d%H%M%S)
 # 获取mac地址并去掉冒号
 mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
 # 图片名为mac地址+该程序运行时间
 image_name=${mac_addr}${datetime}.jpg
-# 客户端存放位置（待更改）
+# 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
 # 检查路径是否存在
