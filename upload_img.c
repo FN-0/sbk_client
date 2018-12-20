@@ -16,24 +16,23 @@ int main(int argc, char *argv[])
   struct curl_slist *headerlist=NULL;
   static const char buf[] = "Expect:";
  
-  sprintf(url, "http://url:8080/picture/imageUpload");
+  sprintf(url, "http://sup-heal.com:port/picture/imageUpload");
 
   curl_global_init(CURL_GLOBAL_ALL);
 
-  curl_formadd(&formpost,  
-               &lastptr,  
-               CURLFORM_COPYNAME, "filename", 
-               CURLFORM_COPYCONTENTS, argv[1],  
-               CURLFORM_END);  
+  curl_formadd(&formpost,
+               &lastptr,
+               CURLFORM_COPYNAME, "filename",
+               CURLFORM_COPYCONTENTS, argv[1],
+               CURLFORM_END);
   
   /* Fill in the submit field too, even if this is rarely needed */  
-  curl_formadd(&formpost,  
-               &lastptr,  
-               CURLFORM_COPYNAME, "picture",  
-               /* TODO: using argv[1] */
+  curl_formadd(&formpost,
+               &lastptr,
+               CURLFORM_COPYNAME, "picture",
                CURLFORM_FILE, argv[1],
-               CURLFORM_CONTENTTYPE, "image/jpeg",  
-               CURLFORM_END);  
+               CURLFORM_CONTENTTYPE, "image/jpeg",
+               CURLFORM_END);
  
   curl = curl_easy_init();
   /* initalize custom header list (stating that Expect: 100-continue is not
@@ -59,7 +58,6 @@ int main(int argc, char *argv[])
     }
     /* always cleanup */ 
     curl_easy_cleanup(curl);
- 
     /* then cleanup the formpost chain */ 
     curl_formfree(formpost);
     /* free slist */ 
