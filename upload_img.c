@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
   if(curl) {
     /* what URL that receives this POST */ 
     curl_easy_setopt(curl, CURLOPT_URL, "http://sup-heal.com:9080/picture");
-    if ( (argc == 2) && (!strcmp(argv[1], "noexpectheader")) )
+    if ( (argc == 2) && (!strcmp(argv[2], "noexpectheader")) )
       /* only disable 100-continue header if explicitly requested */ 
       curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerlist);
     curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
