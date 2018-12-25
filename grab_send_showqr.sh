@@ -56,6 +56,7 @@ if [ $? -eq 2 ]; then
 	shutdown +10 "System will shutdown after 10 minutes"
 elif [ $? -eq 0 ]; then
 	cd ..
+	echo "qrcode"
 	# display qr code
 	./qrcode ${mac_addr} ${datetime}
 	feh -F qr.bmp &
