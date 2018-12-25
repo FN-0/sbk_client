@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
   struct curl_slist *headerlist=NULL;
   static const char buf[] = "Expect:";
  
-  sprintf(url, "http://sup-heal.com:port/picture/imageUpload");
+  sprintf(url, "http://sup-heal.com:9080/picture");
 
   curl_global_init(CURL_GLOBAL_ALL);
 
