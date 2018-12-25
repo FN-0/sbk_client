@@ -52,7 +52,8 @@ if [ ${ret} -eq 2 ]; then
 	# show "upload failed" with qr code
 	./qrcode_upload_failed
 	# feh 显示二维码
-	feh -F qr.bmp &
+	#feh -F qr.bmp &
+	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 10分钟后自动关机
 	shutdown +10 "System will shutdown after 10 minutes"
 elif [ ${ret} -eq 0 ]; then
@@ -60,7 +61,7 @@ elif [ ${ret} -eq 0 ]; then
 	cd ..
 	# display qr code
 	./qrcode ${mac_addr} ${datetime}
-	feh -F qr.bmp &
+	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
 	reupload_images=`ls upload_failed/`
