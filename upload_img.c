@@ -9,14 +9,14 @@ int main(int argc, char *argv[])
   CURLcode res;
  
   int ret;
-  char *url;
+  //char *url;
 
   struct curl_httppost *formpost=NULL;
   struct curl_httppost *lastptr=NULL;
   struct curl_slist *headerlist=NULL;
   static const char buf[] = "Expect:";
  
-  sprintf(url, "http://sup-heal.com:9080/picture");
+  //sprintf(url, "http://sup-heal.com:9080/picture");
 
   curl_global_init(CURL_GLOBAL_ALL);
 
@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   headerlist = curl_slist_append(headerlist, buf);
   if(curl) {
     /* what URL that receives this POST */ 
-    curl_easy_setopt(curl, CURLOPT_URL, url);
+    curl_easy_setopt(curl, CURLOPT_URL, "http://sup-heal.com:9080/picture");
     if ( (argc == 2) && (!strcmp(argv[1], "noexpectheader")) )
       /* only disable 100-continue header if explicitly requested */ 
       curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headerlist);
