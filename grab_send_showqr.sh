@@ -43,9 +43,9 @@ cd images/
 sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
 echo "Start uploading."
 ../upload_img ${image_name}
-echo $?
+ret=$?
 # 使用程序返回值作为上传成功或失败的依据
-if [ $? -eq 2 ]; then
+if [ ${ret} -eq 2 ]; then
 	cp ${image_name} ../upload_failed/
 	cd ..
 	echo "upload failed"
@@ -55,7 +55,7 @@ if [ $? -eq 2 ]; then
 	feh -F qr.bmp &
 	# 10分钟后自动关机
 	shutdown +10 "System will shutdown after 10 minutes"
-elif [ $? -eq 0 ]; then
+elif [ ${ret} -eq 0 ]; then
 	echo "qrcode"
 	cd ..
 	# display qr code
@@ -68,7 +68,8 @@ elif [ $? -eq 0 ]; then
 		for reup_img in ${reupload_images}; do
 			# re-upload them!
 			./upload_img ${reup_img}
-			if [ $? -eq 0 ]; then
+			reupret=$?
+			if [ ${reupret} -eq 0 ]; then
 				rm ${reup_img}
 			fi
   		done
