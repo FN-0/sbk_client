@@ -43,6 +43,7 @@ cd images/
 sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
 echo "Start uploading."
 ../upload_img ${image_name}
+echo $?
 # 使用程序返回值作为上传成功或失败的依据
 if [ $? -eq 2 ]; then
 	cp ${image_name} ../upload_failed/
@@ -55,8 +56,8 @@ if [ $? -eq 2 ]; then
 	# 10分钟后自动关机
 	shutdown +10 "System will shutdown after 10 minutes"
 elif [ $? -eq 0 ]; then
-	cd ..
 	echo "qrcode"
+	cd ..
 	# display qr code
 	./qrcode ${mac_addr} ${datetime}
 	feh -F qr.bmp &
