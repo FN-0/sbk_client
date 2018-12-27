@@ -11,6 +11,8 @@ image_name=${mac_addr}${datetime}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
+unclutter -idle 0.01 -root &
+
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
