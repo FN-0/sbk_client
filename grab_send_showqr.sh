@@ -56,8 +56,9 @@ if [ ${ret} -eq 2 ]; then
 	# feh 显示二维码
 	#feh -F qr.bmp &
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
-	# 10分钟后自动关机
-	shutdown +10 "System will shutdown after 10 minutes"
+	# 5分钟后自动关机
+	sleep 300
+	shutdown now
 elif [ ${ret} -eq 0 ]; then
 	echo "qrcode"
 	cd ..
@@ -78,7 +79,8 @@ elif [ ${ret} -eq 0 ]; then
   		done
 	fi
 	# shutdown in few minutes
-	shutdown +5 "System will shutdown after 5 minutes"
+	sleep 300
+	shutdown now
 fi
 
 exit 0
