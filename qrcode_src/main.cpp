@@ -10,10 +10,10 @@ int main(int argc, char* argv[]) {
 	int errcode = QR_ERR_NONE;
 	/* argv[1]为mac地址，argv[2]为拍摄时间 */
 	blkRst.append("machineid=").append(argv[1]).append("&").append("date=").append(argv[2]).append("\n");
-	blkRst.append("machineid=").append(argv[3]).append("&").append("date=").append(argv[4]).append("\n");
-	blkRst.append("machineid=").append(argv[5]).append("&").append("date=").append(argv[6]).append("\n");
-	blkRst.append("machineid=").append(argv[7]).append("&").append("date=").append(argv[8]).append("\n");
-	blkRst.append("machineid=").append(argv[9]).append("&").append("date=").append(argv[10]).append("\n");
+	blkRst.append("&").append("date=").append(argv[3]).append("\n");
+	blkRst.append("&").append("date=").append(argv[4]).append("\n");
+	blkRst.append("&").append("date=").append(argv[5]).append("\n");
+	blkRst.append("&").append("date=").append(argv[6]).append("\n");
 	QRCode* p = qrInit(10, QR_EM_8BIT, 2, -1, &errcode);
 	if (p == NULL) {
 		printf("error\n");
