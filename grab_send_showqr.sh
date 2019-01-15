@@ -91,7 +91,7 @@ elif [ ${ret} -eq 0 ]; then
 	echo "qrcode"
 	cd ..
 	# display qr code
-	./qrcode ${mac_addr} ${datetime1} ${datetime2} ${datetime3} ${datetime4} ${datetime5}
+	./qrcode ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
