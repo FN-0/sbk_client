@@ -8,7 +8,7 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	string blkRst;
 	int errcode = QR_ERR_NONE;
-	/* argv[1]为mac地址，argv[2]为拍摄时间 */	
+	/* argv[1]为图片名 */	
 	blkRst.append("http://www.sup-heal.com:9080/picture/FiveimageUpload?");
 	blkRst.append("picture=").append(argv[1]);
 	blkRst.append("&picture1=").append(argv[2]);
