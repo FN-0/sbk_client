@@ -23,54 +23,46 @@ int main(int argc, char *argv[])
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "filename",
-               CURLFORM_COPYCONTENTS, argv[1],
-               CURLFORM_END);
+               CURLFORM_COPYCONTENTS, argv[1]);
   
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "picture",
                CURLFORM_FILE, argv[1],
-               CURLFORM_CONTENTTYPE, "image/jpeg",
-               CURLFORM_END);
+               CURLFORM_CONTENTTYPE, "image/jpeg");
               
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "filename1",
-               CURLFORM_COPYCONTENTS, argv[2],
-               CURLFORM_END);
+               CURLFORM_COPYCONTENTS, argv[2]);
   
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "picture1",
                CURLFORM_FILE, argv[2],
-               CURLFORM_CONTENTTYPE, "image/jpeg",
-               CURLFORM_END);
+               CURLFORM_CONTENTTYPE, "image/jpeg");
 
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "filename2",
-               CURLFORM_COPYCONTENTS, argv[3],
-               CURLFORM_END);
+               CURLFORM_COPYCONTENTS, argv[3]);
   
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "picture2",
                CURLFORM_FILE, argv[3],
-               CURLFORM_CONTENTTYPE, "image/jpeg",
-               CURLFORM_END);
+               CURLFORM_CONTENTTYPE, "image/jpeg");
             
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "filename3",
-               CURLFORM_COPYCONTENTS, argv[4],
-               CURLFORM_END);
+               CURLFORM_COPYCONTENTS, argv[4]);
   
   curl_formadd(&formpost,
                &lastptr,
                CURLFORM_COPYNAME, "picture3",
                CURLFORM_FILE, argv[4],
-               CURLFORM_CONTENTTYPE, "image/jpeg",
-               CURLFORM_END);
+               CURLFORM_CONTENTTYPE, "image/jpeg");
   
   curl_formadd(&formpost,
                &lastptr,
@@ -80,7 +72,7 @@ int main(int argc, char *argv[])
   
   curl_formadd(&formpost,
                &lastptr,
-               CURLFORM_COPYNAME, "picture4",
+               CURLFORM_COPYNAME, "picture5",
                CURLFORM_FILE, argv[5],
                CURLFORM_CONTENTTYPE, "image/jpeg",
                CURLFORM_END);
