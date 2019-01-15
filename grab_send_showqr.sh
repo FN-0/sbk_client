@@ -68,11 +68,7 @@ mv ${image_name5} images/
 cd images/
 # sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
 echo "Start uploading."
-../upload_img ${image_name1}
-../upload_img ${image_name2}
-../upload_img ${image_name3}
-../upload_img ${image_name4}
-../upload_img ${image_name5}
+../upload_img ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
 ret=$?
 # 使用程序返回值作为上传成功或失败的依据
 if [ ${ret} -eq 2 ]; then

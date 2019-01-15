@@ -8,13 +8,13 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	string blkRst;
 	int errcode = QR_ERR_NONE;
-	/* argv[1]为图片名 */	
-	blkRst.append("http://www.sup-heal.com:9080/picture/FiveimageUpload?");
-	blkRst.append("picture=").append(argv[1]);
-	blkRst.append("&picture1=").append(argv[2]);
-	blkRst.append("&picture2=").append(argv[3]);
-	blkRst.append("&picture3=").append(argv[4]);
-	blkRst.append("&picture4=").append(argv[5]);
+	/* argv[1]为mac地址，argv[2]为拍摄时间 */
+	blkRst.append("machineid=").append(argv[1]).append("\n");
+	blkRst.append("date=").append(argv[2]).append("\n");
+	blkRst.append("date1=").append(argv[3]).append("\n");
+	blkRst.append("date2=").append(argv[4]).append("\n");
+	blkRst.append("date3=").append(argv[5]).append("\n");
+	blkRst.append("date4=").append(argv[6]).append("\n");
 	QRCode* p = qrInit(10, QR_EM_8BIT, 2, -1, &errcode);
 	if (p == NULL) {
 		printf("error\n");
