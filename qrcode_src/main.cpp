@@ -8,7 +8,6 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	string blkRst;
 	int errcode = QR_ERR_NONE;
-	/* argv[1]为mac地址，argv[2]为拍摄时间 */
 	blkRst.append(argv[1]);
 	QRCode* p = qrInit(10, QR_EM_8BIT, 2, -1, &errcode);
 	if (p == NULL) {
