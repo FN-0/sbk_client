@@ -81,7 +81,7 @@ if [ ${ret} -eq 2 ]; then
 	cd ..
 	echo "upload failed"
 	# show "upload failed" with qr code
-	./qrcode_upload_failed
+	qrencode -o qr.bmp "upload failed"
 	# feh 显示二维码
 	#feh -F qr.bmp &
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
@@ -92,9 +92,7 @@ elif [ ${ret} -eq 0 ]; then
 	echo "qrcode"
 	cd ..
 	# display qr code
-	./qrcode "sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
-	./qrcode "http://sup-heal.com/#/health/healthUpload?deviceNo=b827ebaa097c&midDate=b827ebaa097c2019011615394920190116154003201901161540092019011615401320190116154017"
-
+	qrencode -o qr.bmp "sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
