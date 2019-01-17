@@ -93,6 +93,7 @@ elif [ ${ret} -eq 0 ]; then
 	cd ..
 	# display qr code
 	./qrcode ${url}
+	sleep 3
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
