@@ -185,9 +185,7 @@ int main(int argc, char ** argv)
       case 0:
       default:
         /* timeout or readable/writable sockets */
-        printf("perform!\n");
         curl_multi_perform(multi_handle, &still_running);
-        printf("running: %d!\n", still_running);
         break;
       }
     } while(still_running);
