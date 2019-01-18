@@ -23,7 +23,6 @@ image_name5=${mac_addr}${datetime5}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
-#url="http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
 unclutter -idle 0.01 -root &
 
 # 检查路径是否存在
@@ -36,10 +35,6 @@ cd ${clientpath}
 if [ ! -d "./images" ]; then
 	mkdir images/
 fi
-
-#if [ ! -d "./upload_failed" ]; then
-#	mkdir upload_failed/
-#fi
 
 # 拍摄图片
 # https://github.com/twam/v4l2grab
@@ -71,7 +66,8 @@ cd images/
 echo "Start uploading."
 res=`curl -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
 echo ${res}
-#../upload_img ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
+subl=${res#{*:}
+subr=${subl%%,*}}
 ret=$?
 # 使用程序返回值作为上传成功或失败的依据
 if [ ${ret} -eq 2 ]; then
