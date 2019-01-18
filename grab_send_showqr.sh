@@ -26,6 +26,18 @@ clientpath="/home/pi/sbk_client/"
 #url="http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
 unclutter -idle 0.01 -root &
 
+if [ ! -f "/dev/video0" ]; then
+	timeout=0
+	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
+	while [ ! -f "/dev/video0" ]; do
+		sleep 1
+		timeout++
+		if [ 300 -eq ${timeout} ]; then
+			shutdown now
+		fi
+	done
+fi
+
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
