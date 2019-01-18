@@ -29,8 +29,9 @@
 + 以下是对上传图片实现的说明：
 > 1. 使用`tar zxvf curl-7.62.0.tar.gz`命令解压`libcurl`压缩包，当然如果有新版本可以去[官网下载页面][11]下载。
 > 2. `cd`进解压生成的目录执行`./configure`与`make && sudo make install`进行编译安装，当然如果有权限问题请使用`sudo`执行。
-> 3. `libcurl`安装完成后进行上传程序的编译，例如`gcc upload_img.c -o upload_img -lcurl`，请注意，可执行文件名`upload_img`在`grab_send_showqr.sh`中有对应的使用，如果想更改程序名，则在*shell script*中也应该相应地更改。`-lcurl`是在编译时需要链接的库。
-> 4. `upload_img.c`中使用`argv[1]`作为图片名传入程序，所以在*shell*中使用时不能包含任何多余的前缀或后缀。
+> 3. `LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib` `export LD_LIBRARY_PATH` `ldconfig`
+> 4. `libcurl`安装完成后进行上传程序的编译，例如`gcc upload_img.c -o upload_img -L/usr/local/lib -I/usr/local/include -R/usr/local/lib -lcurl`，请注意，可执行文件名`upload_img`在`grab_send_showqr.sh`中有对应的使用，如果想更改程序名，则在*shell script*中也应该相应地更改。`-lcurl`是在编译时需要链接的库。
+> 5. `upload_img.c`中使用`argv[1]`作为图片名传入程序，所以在*shell*中使用时不能包含任何多余的前缀或后缀。
 + 二维码有两个生成程序，如果上传成功显示包含请求url的二维码，如果上传失败显示包含`上传失败`文字的二维码。
 + 如以上步骤都无错完成，则可以执行*shell script*来进行完整测试。
 + 如测试无误，则把*shell script*添加至开机自动运行。[几种设置树莓派开机自启的方法][12]，我在使用中发现文章的**第3种方法**在实际应用中表现最好。
