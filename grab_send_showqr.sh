@@ -23,6 +23,7 @@ image_name5=${mac_addr}${datetime5}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
+#url="http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
 unclutter -idle 0.01 -root &
 
 # 检查路径是否存在
@@ -76,7 +77,7 @@ if [ ${ret} -eq 2 ]; then
 	cd ..
 	echo "upload failed"
 	# show "upload failed" with qr code
-	./qrcode_upload_failed
+	qrencode -o qr.bmp "upload failed"
 	# feh 显示二维码
 	#feh -F qr.bmp &
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
@@ -87,7 +88,7 @@ elif [ ${ret} -eq 0 ]; then
 	echo "qrcode"
 	cd ..
 	# display qr code
-	./qrcode ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
+	qrencode -o qr.bmp -s 6 "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
