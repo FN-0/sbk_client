@@ -32,7 +32,7 @@ if [ ! -f "/dev/video0" ]; then
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -f "/dev/video0" ]; do
 		sleep 1
-		${timeout}++
+		let timeout++
 		if [ 300 -eq ${timeout} ]; then
 			shutdown now
 		fi
