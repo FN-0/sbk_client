@@ -69,7 +69,8 @@ mv ${image_name5} images/
 cd images/
 # sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
 echo "Start uploading."
-curl -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload
+res=`curl -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
+echo ${res}
 #../upload_img ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
 ret=$?
 # 使用程序返回值作为上传成功或失败的依据
