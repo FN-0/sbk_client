@@ -27,6 +27,7 @@ unclutter -idle 0.01 -root &
 
 if [ ! -c "/dev/video0" ]; then
 	echo "no cam"
+	notify-send 摄像头未插入
 	timeout=0
 	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -c "/dev/video0" ]; do
@@ -49,6 +50,7 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
+notify-send 正在处理...
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
@@ -93,6 +95,7 @@ if [ ${ret} -eq 2 ]; then
 	#feh -F qr.bmp &
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 5分钟后自动关机
+	notify-send 五分钟后将自动关机
 	sleep 300
 	shutdown now
 elif [ ${ret} -eq 0 ]; then
@@ -115,6 +118,7 @@ elif [ ${ret} -eq 0 ]; then
   	#	done
 	#fi
 	# shutdown in few minutes
+	notify-send 五分钟后将自动关机
 	sleep 300
 	shutdown now
 fi
