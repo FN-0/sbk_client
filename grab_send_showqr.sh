@@ -28,7 +28,7 @@ unclutter -idle 0.01 -root &
 if [ ! -f "/dev/video0" ]; then
 	echo "no cam"
 	timeout=0
-	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
+	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -f "/dev/video0" ]; do
 		sleep 1
 		let timeout++
