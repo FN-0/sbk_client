@@ -27,11 +27,12 @@ unclutter -idle 0.01 -root &
 
 if [ ! -c "/dev/video0" ]; then
 	echo "no cam"
-	notify-send 摄像头未插入
+
 	timeout=0
 	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -c "/dev/video0" ]; do
 		sleep 1
+		notify-send -t 500 摄像头未插入
 		let timeout++
 		if [ 300 -eq ${timeout} ]; then
 			shutdown now
@@ -50,7 +51,7 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
-notify-send 正在处理...
+notify-send  正在处理...
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
@@ -93,9 +94,9 @@ if [ ${ret} -eq 2 ]; then
 	qrencode -o qr.bmp "upload failed"
 	# feh 显示二维码
 	#feh -F qr.bmp &
-	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 5分钟后自动关机
-	notify-send 五分钟后将自动关机
+	notify-send -t 0 五分钟后将自动关机
 	sleep 300
 	shutdown now
 elif [ ${ret} -eq 0 ]; then
@@ -103,7 +104,7 @@ elif [ ${ret} -eq 0 ]; then
 	cd ..
 	# display qr code
 	qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
-	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
 	#reupload_images=`ls upload_failed/`
@@ -118,7 +119,7 @@ elif [ ${ret} -eq 0 ]; then
   	#	done
 	#fi
 	# shutdown in few minutes
-	notify-send 五分钟后将自动关机
+	notify-send -t 0 五分钟后将自动关机
 	sleep 300
 	shutdown now
 fi
