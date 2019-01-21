@@ -77,14 +77,10 @@ mv ${image_name5} images/
 cd images/
 # sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
 echo "Start uploading."
-<<<<<<< HEAD
-../upload_img ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
-=======
 res=`curl -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
 echo ${res}
 #subl=${res#*:}
 #subr=${subl%%,*}
->>>>>>> upload5imgs
 ret=$?
 # 使用程序返回值作为上传成功或失败的依据
 if [ ${ret} -eq 2 ]; then
@@ -103,11 +99,7 @@ elif [ ${ret} -eq 0 ]; then
 	echo "qrcode"
 	cd ..
 	# display qr code
-<<<<<<< HEAD
-	qrencode -o qr.bmp -s 6 "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
-=======
 	qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
->>>>>>> upload5imgs
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
