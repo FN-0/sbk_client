@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# !!!修改时请注意使用'LF换行'!!!
+# 请注意使用'LF换行'
 
 # 获取当前时间
 datetime1=$(date +%Y%m%d%H%M%S)
@@ -55,6 +55,7 @@ notify-send  正在处理...
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
+./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
 sleep 1
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name2}
 sleep 1
@@ -64,7 +65,6 @@ sleep 1
 sleep 1
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name5}
 
-# upload & show qr code & upload fail process
 # 上传图片
 # 如果上传失败显示含有上传失败文字的二维码
 # 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
@@ -78,7 +78,7 @@ mv ${image_name3} images/
 mv ${image_name4} images/
 mv ${image_name5} images/
 cd images/
-# sleep 10 # 经实际测试，上传时可能还没连上wifi需要加延时
+
 echo "Start uploading."
 res=`curl -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
 echo ${res}
@@ -87,14 +87,11 @@ echo ${res}
 ret=$?
 # 使用程序返回值作为上传成功或失败的依据
 if [ ${ret} -eq 2 ]; then
-	#cp ${image_name} ../upload_failed/
 	cd ..
 	echo "upload failed"
-	# show "upload failed" with qr code
-	qrencode -o qr.bmp "upload failed"
+	qrencode -o qr.bmp "上传失败"
 	# feh 显示二维码
-	#feh -F qr.bmp &
-	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 5分钟后自动关机
 	notify-send -t 0 五分钟后将自动关机
 	sleep 300
