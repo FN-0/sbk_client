@@ -2,6 +2,9 @@
 
 # 请注意使用'LF换行'
 
+sleep 5
+sudo ntpdate 0.cn.pool.ntp.org
+
 # 获取当前时间
 datetime1=$(date +%Y%m%d%H%M%S)
 sleep 1
