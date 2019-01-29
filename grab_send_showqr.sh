@@ -2,7 +2,11 @@
 
 # 请注意使用'LF换行'
 
-sleep 5
+ping -c 1 114.114.114.114 > /dev/null 2>&1
+while [ $? -ne 0]; do
+	ping -c 1 114.114.114.114 > /dev/null 2>&1
+done
+
 sudo ntpdate 0.cn.pool.ntp.org
 
 # 获取当前时间
