@@ -88,7 +88,7 @@ mv ${image_name5} images/
 cd images/
 
 echo "Start uploading."
-res=`curl -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
+res=`curl --max-time 300 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
 echo ${res}
 #subl=${res#*:}
 #subr=${subl%%,*}
