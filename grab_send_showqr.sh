@@ -2,9 +2,9 @@
 
 # 请注意使用'LF换行'
 
-ping -c 1 114.114.114.114 > /dev/null 2>&1
+ping -c 1 www.sup-heal.com > /dev/null 2>&1
 while [ $? -ne 0 ]; do
-	ping -c 1 114.114.114.114 > /dev/null 2>&1
+	ping -c 1 www.sup-heal.com > /dev/null 2>&1
 done
 
 # 获取网络时间
