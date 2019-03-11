@@ -40,7 +40,7 @@ if [ ! -c "/dev/video0" ]; then
 	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -c "/dev/video0" ]; do
 		sleep 2
-		notify-send -t 1000 摄像头未插入
+		notify-send -t 1000 设备未插入
 		let timeout+=2
 		if [ 300 -eq ${timeout} ]; then
 			shutdown now
