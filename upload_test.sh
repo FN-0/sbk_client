@@ -1,0 +1,2 @@
+cd test/
+curl --max-time 300 -F "picture=@/home/pi/sbk_client/test/b827eb574ac320190320135933.jpg" -F "picture1=@/home/pi/sbk_client/test/b827eb574ac320190320135934.jpg" -F "picture2=@/home/pi/sbk_client/test/b827eb574ac320190320135935.jpg" -F "picture3=@/home/pi/sbk_client/test/b827eb574ac320190320135936.jpg" -F "picture4=@/home/pi/sbk_client/test/b827eb574ac320190320135937.jpg" http://www.sup-heal.com:9080/picture/FiveimageUpload
