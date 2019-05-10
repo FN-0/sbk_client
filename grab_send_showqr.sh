@@ -2,9 +2,9 @@
 
 # 请注意使用'LF换行'
 
-ping -c 1 www.sup-heal.com > /dev/null 2>&1
+ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
-	ping -c 1 www.sup-heal.com > /dev/null 2>&1
+	ping -c 1 121.40.169.248 > /dev/null 2>&1
 done
 
 # 获取网络时间
@@ -40,7 +40,7 @@ if [ ! -c "/dev/video0" ]; then
 	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -c "/dev/video0" ]; do
 		sleep 2
-		notify-send -t 1000 设备未插入
+		notify-send -t 1000 摄像头未插入
 		let timeout+=2
 		if [ 300 -eq ${timeout} ]; then
 			shutdown now
@@ -88,27 +88,29 @@ mv ${image_name5} images/
 cd images/
 
 echo "Start uploading."
-res=`curl --max-time 300 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://www.sup-heal.com:9080/picture/FiveimageUpload`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://121.40.169.248:9080/picture/FiveimageUpload`
 echo ${res}
+echo ${res:0:1}
 #subl=${res#*:}
 #subr=${subl%%,*}
-ret=$?
+#ret=$?
 # 使用程序返回值作为上传成功或失败的依据
-if [ ${ret} -eq 2 ]; then
+if [[ "${res}" == "" ]]; then
 	cd ..
 	echo "upload failed"
-	qrencode -o qr.bmp "上传失败"
+	qrencode -s 6 -o qr.bmp "上传失败"
 	# feh 显示二维码
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 5分钟后自动关机
 	notify-send -t 0 五分钟后将自动关机
 	sleep 300
 	shutdown now
-elif [ ${ret} -eq 0 ]; then
+elif [[ "${res}" != "" ]]; then
 	echo "qrcode"
 	cd ..
 	# display qr code
-	qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
+	#qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
+	qrencode -s 6 -o qr.bmp "http://userclient.sup-heal.com/health?heal=${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
