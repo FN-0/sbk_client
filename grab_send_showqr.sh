@@ -7,6 +7,8 @@ while [ $? -ne 0 ]; do
 	ping -c 1 121.40.169.248 > /dev/null 2>&1
 done
 
+notify-send 网络连接成功
+
 # 获取网络时间
 sudo ntpdate 0.cn.pool.ntp.org
 
@@ -59,7 +61,7 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
-notify-send  正在处理...
+notify-send  正在拍摄
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
@@ -88,9 +90,10 @@ mv ${image_name5} images/
 cd images/
 
 echo "Start uploading."
+notify-send  正在上传
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://121.40.169.248:9080/picture/FiveimageUpload`
 echo ${res}
-echo ${res:0:1}
+#echo ${res:0:1}
 #subl=${res#*:}
 #subr=${subl%%,*}
 #ret=$?
@@ -102,7 +105,7 @@ if [[ "${res}" == "" ]]; then
 	# feh 显示二维码
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 5分钟后自动关机
-	notify-send -t 0 五分钟后将自动关机
+	notify-send -t 0 上传失败，五分钟后将自动关机
 	sleep 300
 	shutdown now
 elif [[ "${res}" != "" ]]; then
@@ -110,7 +113,7 @@ elif [[ "${res}" != "" ]]; then
 	cd ..
 	# display qr code
 	#qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
-	qrencode -s 4 -o qr.bmp "http://userclient.sup-heal.com/health?heal=${res}"
+	qrencode -s 4 -o qr.bmp "http://userclient.fun-med.cn/health?heal=${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
@@ -126,7 +129,7 @@ elif [[ "${res}" != "" ]]; then
   	#	done
 	#fi
 	# shutdown in few minutes
-	notify-send -t 0 五分钟后将自动关机
+	notify-send -t 0 上传成功，五分钟后将自动关机
 	sleep 300
 	shutdown now
 fi
