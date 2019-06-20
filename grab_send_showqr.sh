@@ -7,9 +7,9 @@ unclutter -idle 0.01 -root &
 while :
 do
 	repeat=0
-	datetime1="201906240"
+	datetime1=201906240
 	str=`head /dev/urandom | cksum`
-	datetime1=datetime1+${str:0:5}
+	datetime1=${datetime1}${str:0:5}
 	#until [ ${#datetime1} -eq 14 ]
 	#do	
 	#done
