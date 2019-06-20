@@ -80,8 +80,22 @@ sleep 1
 # 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
 if [ ! -f ${image_name1} ]; then
 	echo "Image does not exist."
+	notify-send -t 0 图片未拍摄成功
+	exit 0
+elif [ ! -f ${image_name2} ]; then
+	notify-send -t 0 图片未拍摄成功
+	exit 0
+elif [ ! -f ${image_name3} ]; then
+	notify-send -t 0 图片未拍摄成功
+	exit 0
+elif [ ! -f ${image_name4} ]; then
+	notify-send -t 0 图片未拍摄成功
+	exit 0
+elif [ ! -f ${image_name5} ]; then
+	notify-send -t 0 图片未拍摄成功
 	exit 0
 fi
+
 mv ${image_name1} images/
 mv ${image_name2} images/
 mv ${image_name3} images/
