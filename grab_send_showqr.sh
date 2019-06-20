@@ -10,12 +10,12 @@ do
 	datetime1=""
 	until [ ${#datetime1} -eq 14 ]
 	do
-		datetime1="`head /dev/urandom | cksum | sed 's/ //g'`"
+		datetime1=`head /dev/urandom | cksum | sed 's/ //g'`
 	done
-	datetime2="`expr ${datetime1}+1`"
-	datetime3="`expr ${datetime1}+2`"
-	datetime4="`expr ${datetime1}+3`"
-	datetime5="`expr ${datetime1}+4`"
+	datetime2=`expr ${datetime1}+1`
+	datetime3=`expr ${datetime1}+2`
+	datetime4=`expr ${datetime1}+3`
+	datetime5=`expr ${datetime1}+4`
 	# 获取mac地址并去掉冒号
 	mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
 	# 图片名为mac地址+该程序运行时间
