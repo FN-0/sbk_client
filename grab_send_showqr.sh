@@ -90,6 +90,18 @@ if [ ! -f ${image_name1} ]; then
 	echo "Image does not exist."
 	notify-send 图片未拍摄成功
 	exit 0
+elif [ -f images/${image_name2} ]; then
+	notify-send 图片未拍摄成功
+	exit 0
+elif [ -f images/${image_name3} ]; then
+	notify-send 图片未拍摄成功
+	exit 0
+elif [ -f images/${image_name4} ]; then
+	notify-send 图片未拍摄成功
+	exit 0
+elif [ -f images/${image_name5} ]; then
+	notify-send 图片未拍摄成功
+	exit 0
 fi
 
 mv ${image_name1} images/
