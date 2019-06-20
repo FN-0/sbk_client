@@ -7,11 +7,12 @@ unclutter -idle 0.01 -root &
 while :
 do
 	repeat=0
-	datetime1=""
-	until [ ${#datetime1} -eq 14 ]
-	do
-		datetime1=`head /dev/urandom | cksum | sed 's/ //g'`
-	done
+	datetime1="201906240"
+	str=`head /dev/urandom | cksum`
+	datetime1=datetime1+${str:0:5}
+	#until [ ${#datetime1} -eq 14 ]
+	#do	
+	#done
 	datetime2=`expr ${datetime1} + 1`
 	datetime3=`expr ${datetime1} + 2`
 	datetime4=`expr ${datetime1} + 3`
