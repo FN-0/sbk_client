@@ -76,11 +76,16 @@ mv ${image_name2} images/
 mv ${image_name3} images/
 mv ${image_name4} images/
 mv ${image_name5} images/
-notify-send  保存成功
+notify-send 保存成功
 
 # shutdown in few minutes
-notify-send -t 0 三分钟后将自动关机
-sleep 180
-shutdown now
+notify-send -t 0 ${datetime1}
+notify-send -t 0 ${datetime2}
+notify-send -t 0 ${datetime3}
+notify-send -t 0 ${datetime4}
+notify-send -t 0 ${datetime5}
+#三分钟后将自动关机
+#sleep 180
+#shutdown now
 
 exit 0
