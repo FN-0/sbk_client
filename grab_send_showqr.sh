@@ -3,25 +3,45 @@
 # 请注意使用'LF换行'
 # 隐藏指针
 unclutter -idle 0.01 -root &
-# 获取当前时间
-sleep 1
-datetime1=$(date +%Y%m%d%H%M%S)
-sleep 1
-datetime2=$(date +%Y%m%d%H%M%S)
-sleep 1
-datetime3=$(date +%Y%m%d%H%M%S)
-sleep 1
-datetime4=$(date +%Y%m%d%H%M%S)
-sleep 1
-datetime5=$(date +%Y%m%d%H%M%S)
-# 获取mac地址并去掉冒号
-mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
-# 图片名为mac地址+该程序运行时间
-image_name1=${mac_addr}${datetime1}.jpg
-image_name2=${mac_addr}${datetime2}.jpg
-image_name3=${mac_addr}${datetime3}.jpg
-image_name4=${mac_addr}${datetime4}.jpg
-image_name5=${mac_addr}${datetime5}.jpg
+
+while :
+do
+	repeat=0
+	datetime1=""
+	until [ ${#datetime1} -eq 14 ]
+	do
+		datetime1=`head /dev/urandom | cksum | sed 'd/ //g'`
+	done
+	datetime2=`expr ${datetime1}+1`
+	datetime3=`expr ${datetime1}+2`
+	datetime4=`expr ${datetime1}+3`
+	datetime5=`expr ${datetime1}+4`
+	# 获取mac地址并去掉冒号
+	mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
+	# 图片名为mac地址+该程序运行时间
+	image_name1=${mac_addr}${datetime1}.jpg
+	image_name2=${mac_addr}${datetime2}.jpg
+	image_name3=${mac_addr}${datetime3}.jpg
+	image_name4=${mac_addr}${datetime4}.jpg
+	image_name5=${mac_addr}${datetime5}.jpg
+	# 检测重复
+	if [ -f images/${image_name1} ]; then
+		repeat=1
+	elif [ -f images/${image_name2} ]; then
+		repeat=1
+	elif [ -f images/${image_name3} ]; then
+		repeat=1
+	elif [ -f images/${image_name4} ]; then
+		repeat=1
+	elif [ -f images/${image_name5} ]; then
+		repeat=1
+	fi
+	# 无重复跳出循环
+	if [ ${repeat} -eq 0 ]; then
+		break
+	fi
+done
+
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
