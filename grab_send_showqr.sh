@@ -10,7 +10,7 @@ do
 	datetime1=""
 	until [ ${#datetime1} -eq 14 ]
 	do
-		datetime1="`head /dev/urandom | cksum | sed 'd/ //g'`"
+		datetime1="`head /dev/urandom | cksum | sed 's/ //g'`"
 	done
 	datetime2="`expr ${datetime1}+1`"
 	datetime3="`expr ${datetime1}+2`"
