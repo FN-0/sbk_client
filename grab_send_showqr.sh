@@ -96,6 +96,8 @@ elif [ ! -f ${image_name5} ]; then
 	exit 0
 fi
 
+python edit_image.py ${image_name1} ${image_name2} ${image_name3} ${image_name4} ${image_name5}
+
 mv ${image_name1} images/
 mv ${image_name2} images/
 mv ${image_name3} images/
