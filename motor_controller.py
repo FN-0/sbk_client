@@ -20,12 +20,11 @@ GPIO.setup(13, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 GPIO.add_event_detect(13, GPIO.FALLING, bouncetime = 200)
 '''
 try:
-    ## 使用BOARD引脚编号，此外还有 GPIO.BCM
     GPIO.setmode(GPIO.BOARD)
     ## 设置引脚输出
-    GPIO.setup(11, GPIO.OUT)
+    GPIO.setup(12, GPIO.OUT)
     GPIO.setup(18, GPIO.OUT)
-    rotation(11, 18, 4)
+    rotation(12, 18, 4)
     '''
     while True:
         # 如果检测到电平FALLING, 说明开关闭合
@@ -35,7 +34,7 @@ try:
         time.sleep(0.01)     # 10毫秒的检测间隔
     '''
     time.sleep(4)
-    rotation(18, 11, 4)
+    rotation(18, 12, 4)
 except Exception as e:
     print(e)
 
