@@ -3,6 +3,7 @@
 
 import RPi.GPIO as GPIO
 import time
+import sys
 
 ## 控制转动
 def rotation(pin1, pin2, t):
@@ -18,23 +19,24 @@ def on_switch_pressed():
 GPIO.setup(13, GPIO.IN, pull_up_down = GPIO.PUD_UP)
 ## 检测HIGH -> LOW的变化
 GPIO.add_event_detect(13, GPIO.FALLING, bouncetime = 200)
-'''
-try:
-    GPIO.setmode(GPIO.BOARD)
-    ## 设置引脚输出
-    GPIO.setup(12, GPIO.OUT)
-    GPIO.setup(18, GPIO.OUT)
-    rotation(12, 18, 4)
-    '''
     while True:
         # 如果检测到电平FALLING, 说明开关闭合
         if GPIO.event_detected(13):
             on_switch_pressed()
         # 可以在循环中做其他检测
         time.sleep(0.01)     # 10毫秒的检测间隔
-    '''
-    time.sleep(4)
-    rotation(18, 12, 4)
+'''
+try:
+    pin1 = sys.argv[1]
+    pin2 = sys.argv[2]
+    time = sys.argv[3]
+    GPIO.setmode(GPIO.BOARD)
+    ## 设置引脚输出
+    GPIO.setup(pin1, GPIO.OUT)
+    GPIO.setup(pin2, GPIO.OUT)
+    rotation(pin1, pin2, time)
+    time.sleep(10)
+    rotation(pin2, pin1, time)
 except Exception as e:
     print(e)
 
