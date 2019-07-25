@@ -36,7 +36,7 @@ try:
     GPIO.setup(pin2, GPIO.OUT)
     rotation(pin1, pin2, t)
     time.sleep(10)
-    rotation(pin2, pin1, time)
+    rotation(pin2, pin1, t)
 except Exception as e:
     print(e)
 
