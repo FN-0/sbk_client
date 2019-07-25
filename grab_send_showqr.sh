@@ -107,7 +107,7 @@ mv ${image_name4} images/
 mv ${image_name5} images/
 cd images/
 
-python /home/pi/sbk_client/motor_controller.py 15 16 20 &
+python /home/pi/sbk_client/motor_controller.py 15 16 4 &
 
 echo "Start uploading."
 notify-send  正在上传
