@@ -27,14 +27,14 @@ GPIO.add_event_detect(13, GPIO.FALLING, bouncetime = 200)
         time.sleep(0.01)     # 10毫秒的检测间隔
 '''
 try:
-    pin1 = sys.argv[1]
-    pin2 = sys.argv[2]
-    time = sys.argv[3]
+    pin1 = int(sys.argv[1])
+    pin2 = int(sys.argv[2])
+    t = float(sys.argv[3])
     GPIO.setmode(GPIO.BOARD)
     ## 设置引脚输出
     GPIO.setup(pin1, GPIO.OUT)
     GPIO.setup(pin2, GPIO.OUT)
-    rotation(pin1, pin2, time)
+    rotation(pin1, pin2, t)
     time.sleep(10)
     rotation(pin2, pin1, time)
 except Exception as e:
