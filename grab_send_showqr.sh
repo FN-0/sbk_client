@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 20
+python /home/pi/sbk_client/motor_controller.py 11 12 11 13
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -107,7 +107,7 @@ mv ${image_name4} images/
 mv ${image_name5} images/
 cd images/
 
-python /home/pi/sbk_client/motor_controller.py 15 16 4 &
+python /home/pi/sbk_client/motor_controller.py 15 16 1 1 &
 
 echo "Start uploading."
 notify-send  正在上传

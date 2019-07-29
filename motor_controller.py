@@ -29,14 +29,15 @@ GPIO.add_event_detect(13, GPIO.FALLING, bouncetime = 200)
 try:
     pin1 = int(sys.argv[1])
     pin2 = int(sys.argv[2])
-    t = float(sys.argv[3])
+    t1 = float(sys.argv[3])
+    t2 = float(sys.argv[4])
     GPIO.setmode(GPIO.BOARD)
     ## 设置引脚输出
     GPIO.setup(pin1, GPIO.OUT)
     GPIO.setup(pin2, GPIO.OUT)
-    rotation(pin1, pin2, t)
+    rotation(pin1, pin2, t1)
     time.sleep(10)
-    rotation(pin2, pin1, t)
+    rotation(pin2, pin1, t2)
 except Exception as e:
     print(e)
 
