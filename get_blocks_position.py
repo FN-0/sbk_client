@@ -192,7 +192,8 @@ def main():
     of = open('block_pos.txt', 'w')
     of.write(str(block_pos))
   else:
-    print('Cannot get the position.')
+    of = open('block_pos.txt', 'w')
+    of.write("0")
   
 if __name__ == "__main__":
   main()

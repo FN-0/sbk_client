@@ -77,6 +77,12 @@ python /home/pi/sbk_client/get_blocks_position.py ${image_name1}
 filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
 
+if [[ "${pos_data}" == "0" ]]; then
+    notify-send -t 0 试纸位置错误
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+    exit 0
+fi
+
 echo "Start uploading."
 notify-send  正在上传
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb='${pos_data}''"  http://192.168.31.226:8080/picture/python/pythonUploadAndAnalysis`
