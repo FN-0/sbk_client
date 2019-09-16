@@ -191,7 +191,6 @@ def main():
     print(block_pos)
     of = open('block_pos.txt', 'w')
     of.write(str(block_pos))
-    # TODO: write to file
   else:
     print('Cannot get the position.')
   
