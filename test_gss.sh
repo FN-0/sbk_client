@@ -76,7 +76,7 @@ cp 0.jpg ${image_name1}
 python /home/pi/sbk_client/get_blocks_position.py ${image_name1}
 
 filename="/home/pi/sbk_client/test/block_pos.txt"
-pos_data=`head -n 1 filename`
+pos_data=`head -n 1 ${filename}`
 
 echo "Start uploading."
 #notify-send  正在上传

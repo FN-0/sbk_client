@@ -75,7 +75,7 @@ python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 python /home/pi/sbk_client/get_blocks_position.py ${image_name1}
 
 filename="/home/pi/sbk_client/images/block_pos.txt"
-pos_data=`head -n 1 filename`
+pos_data=`head -n 1 ${filename}`
 
 echo "Start uploading."
 notify-send  正在上传
