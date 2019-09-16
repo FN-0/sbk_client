@@ -91,17 +91,17 @@ if [[ "${res}" == "" ]]; then
 	# feh 显示二维码
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# 5分钟后自动关机
-	notify-send -t 0 上传失败，五分钟后将自动关机
-	sleep 300
-	shutdown now
+	#notify-send -t 0 上传失败，五分钟后将自动关机
+	#sleep 300
+	#shutdown now
 elif [[ "${res}" != "" ]]; then
 	echo "qrcode"
 	cd ..
 	qrencode -s 4 -o qr.bmp "http://userclient.fun-med.cn/health?heal=${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
-	notify-send -t 0 上传成功，五分钟后将自动关机
-	sleep 300
-	shutdown now
+	#notify-send -t 0 上传成功，五分钟后将自动关机
+	#sleep 300
+	#shutdown now
 fi
 
 exit 0
