@@ -72,14 +72,14 @@ cd images/
 
 python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python get_blocks_position.py ${image_name1}
+python /home/pi/sbk_client/get_blocks_position.py ${image_name1}
 
-filename="./block_pos.txt"
-pos_data=`head 1 filename`
+filename="/home/pi/sbk_client/images/block_pos.txt"
+pos_data=`head -n 1 filename`
 
 echo "Start uploading."
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -d "rgb=${pos_data}"  http://192.168.31.226:8080/picture/python/pythonUploadAndAnalysis`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb='${pos_data}''"  http://192.168.31.226:8080/picture/python/pythonUploadAndAnalysis`
 echo ${res}
 # 使用程序返回值作为上传成功或失败的依据
 if [[ "${res}" == "" ]]; then
