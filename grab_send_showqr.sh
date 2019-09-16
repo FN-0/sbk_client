@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 11 13
+python /home/pi/sbk_client/motor_controller.py 11 12 9.5 11.5
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -27,14 +27,13 @@ unclutter -idle 0.01 -root &
 
 if [ ! -c "/dev/video0" ]; then
 	echo "no cam"
-
 	timeout=0
-	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -c "/dev/video0" ]; do
 		sleep 2
 		notify-send -t 1000 摄像头未插入
 		let timeout+=2
 		if [ 300 -eq ${timeout} ]; then
+			python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 			shutdown now
 		fi
 	done
@@ -43,6 +42,7 @@ fi
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
 cd ${clientpath}
@@ -63,13 +63,14 @@ notify-send  正在拍摄
 if [ ! -f ${image_name1} ]; then
 	echo "Image does not exist."
 	notify-send -t 0 图片未拍摄成功
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
 
 mv ${image_name1} images/
 cd images/
 
-python /home/pi/sbk_client/motor_controller.py 15 16 1 1 &
+python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
 python get_blocks_position.py ${image_name1}
 
