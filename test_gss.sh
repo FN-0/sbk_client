@@ -85,7 +85,7 @@ fi
 
 echo "Start uploading."
 #notify-send  正在上传
-res=`curl -F "picture=@/home/pi/sbk_client/test/${image_name1}" -F "rgb='${pos_data}'"  http://192.168.31.226:8080/picture/python/pythonUploadAndAnalysis`
+res=`curl -F "picture=@/home/pi/sbk_client/test/${image_name1}" -F "rgb=${pos_data}"  http://192.168.31.226:8080/picture/python/pythonUploadAndAnalysis`
 #res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"  http://121.40.169.248:9080/picture/FiveimageUpload`
 echo ${res}
 # 使用程序返回值作为上传成功或失败的依据
