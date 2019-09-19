@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 8 8
+python /home/pi/sbk_client/motor_controller.py 11 12 9 11
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
