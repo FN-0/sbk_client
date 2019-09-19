@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 6 6
+python /home/pi/sbk_client/motor_controller.py 11 12 6 7
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -25,18 +25,12 @@ clientpath="/home/pi/sbk_client/"
 
 unclutter -idle 0.01 -root &
 
+# 检查摄像头是否存在
 if [ ! -c "/dev/video0" ]; then
 	echo "no cam"
-	timeout=0
-	while [ ! -c "/dev/video0" ]; do
-		sleep 2
-		notify-send -t 1000 摄像头未插入
-		let timeout+=2
-		if [ 300 -eq ${timeout} ]; then
-			python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-			shutdown now
-		fi
-	done
+	notify-send -t 0 设备连接断开
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	exit 0
 fi
 
 # 检查路径是否存在
