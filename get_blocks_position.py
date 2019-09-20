@@ -172,7 +172,7 @@ def get_right_block_position(im, boxes):
   #print(adjusted_boxes)
   if adjusted_boxes:
     im2 = draw_rect(im2, adjusted_boxes, sys.argv[2]+'_调整后')
-    im2.show('2')
+    im2.show()
     #del im2
     mca = get_rgb_in_square(im, adjusted_boxes[13])
     mca_block = edge_pos(mca)
@@ -183,7 +183,7 @@ def get_right_block_position(im, boxes):
     else:
       return adjusted_boxes
   else:
-    im1.show('1')
+    im1.show()
     return False
 
 def main():
