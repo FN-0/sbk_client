@@ -73,7 +73,7 @@ pos_data=`head -n 1 ${filename}`
 
 if [[ "${pos_data}" == "0" ]]; then
     notify-send -t 0 试纸位置错误
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
     exit 0
 fi
 
