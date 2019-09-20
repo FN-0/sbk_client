@@ -72,7 +72,7 @@ filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
 
 if [[ "${pos_data}" == "0" ]]; then
-    notify-send -t 0 试纸位置错误
+    notify-send 试纸位置错误
 	feh -F "${datetime1}.png"
 	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
     exit 0
