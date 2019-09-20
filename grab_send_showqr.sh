@@ -66,7 +66,7 @@ cd images/
 
 python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/get_blocks_position.py ${image_name1}
+python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1}
 
 filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`

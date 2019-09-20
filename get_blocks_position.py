@@ -163,16 +163,17 @@ def draw_rect(im, boxes, fn):
 def get_right_block_position(im, boxes):
   im1 = im.copy()
   im2 = im.copy()
-  im1 = draw_rect(im1, boxes, '000')
-  del im1
+  im1 = draw_rect(im1, boxes, sys.argv[2])
+  #del im1
   if edge_detect(get_rgb_in_square(im, boxes[0])):
     adjusted_boxes = position_adjustment(im, boxes)
   else:
     adjusted_boxes = boxes
   #print(adjusted_boxes)
   if adjusted_boxes:
-    im2 = draw_rect(im2, adjusted_boxes, '999')
-    del im2
+    im2 = draw_rect(im2, adjusted_boxes, sys.argv[2]+'_调整后')
+    im2.show('2')
+    #del im2
     mca = get_rgb_in_square(im, adjusted_boxes[13])
     mca_block = edge_pos(mca)
     #print(mca_block)
@@ -182,6 +183,7 @@ def get_right_block_position(im, boxes):
     else:
       return adjusted_boxes
   else:
+    im1.show('1')
     return False
 
 def main():
