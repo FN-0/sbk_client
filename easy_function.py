@@ -34,11 +34,52 @@ def make_int_aver(lst):
 def blk_lst_maker(rgb_arr):
   blk_lst = []
   for a in rgb_arr:
-    if np.mean(a) < 55:
+    blk_count = 0
+    for px in a:
+      if sum(px) < 55 * 3:
+        blk_count += 1
+    if blk_count > 20:
       blk_lst.append(1)
     else:
       blk_lst.append(0)
   return blk_lst
+
+def is_black_in_center(blk_lst):
+  half_lst = [
+    blk_lst[:len(blk_lst)//2],
+    blk_lst[len(blk_lst)//2:]
+  ]
+  edge_count1 = 0
+  for clr in half_lst[0]:
+    cng = False
+    if clr == 0 and cng == False:
+      edge_count1 += 1
+    elif clr == 1 and cng == False:
+      cng = True
+    elif clr == 0 and cng == True:
+      return False
+
+  edge_count2 = 0
+  for clr in half_lst[1]:
+    cng = False
+    if clr == 1 and cng == False:
+      edge_count2 += 1
+    elif clr == 0 and cng == False:
+      cng == True
+    elif clr == 1 and cng == True:
+      return False
+  
+  if (is_similar(edge_count1, edge_count2) and 
+        edge_count1 + edge_count2 < 50):
+    return True
+  else:
+    return False
+
+def is_similar(arg1, arg2):
+  if abs(arg1 - arg2) < 10:
+    return True
+  else:
+    return False
 
 '''
 def find_block(im):

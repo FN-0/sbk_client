@@ -4,8 +4,25 @@ from __future__ import print_function
 import sys
 import numpy as np
 from PIL import Image, ImageDraw
-from easy_function import std, make_int_aver, blk_lst_maker
+from easy_function import std, make_int_aver, blk_lst_maker, is_black_in_center
 from src_data import boxesT as boxes
+
+# TODO: 
+# new function: 
+#     find where the black circle is
+
+def get_region_of_black_circles(im, box_size):
+  # rgb_boxes_lst = [[(r1,g1,b1),(r2,g2,b2),...,(r150,g150,b150)],[(),(),...,()],...,[(),(),...,()]]
+  rgb_boxes_lst = []
+  for posy in range(0, im.height-150):
+    for posx in range(0, im.width-150):
+      rgb_boxes_lst.append(get_rgb_in_square(im, (posx, posy, box_size, box_size)))
+  for rgb_boxes in rgb_boxes_lst:
+    if is_right_position(rgb_boxes, 150):
+      # TODO: get right position and do sth
+      pass
+    #aver_rgb = fetch_aver_rgb(rgb_boxes)
+    pass
 
 def get_rgb_in_square(im, box):
   """Get rgb data from the square region.
@@ -67,7 +84,7 @@ def edge_detect(rgb_lst):
       unnormal_px += 1
   return True if unnormal_px > 14 else False
 
-''' TODO: Need update
+'''
 def pos_check(im):  
   """Check if the position is proper.
 
@@ -80,12 +97,19 @@ def pos_check(im):
   box = (935, 120, 40, 10)
   return True if sum(get_main_color(im, box)) < 45 else False'''
 
-def edge_pos(rgb_lst):
+def is_right_position(rgb_lst, box_size):
   rgb_arr = np.array(rgb_lst)
-  rgb_arr_C = np.reshape(rgb_arr, (10, 14, 3), order='C')
-  rgb_arr_F = np.reshape(rgb_arr, (14, 10, 3), order='F')
+  rgb_arr_C = np.reshape(rgb_arr, (box_size, box_size, 3), order='C')
+  rgb_arr_F = np.reshape(rgb_arr, (box_size, box_size, 3), order='F')
   blk_row = blk_lst_maker(rgb_arr_C)
   blk_col = blk_lst_maker(rgb_arr_F)
+
+  if is_black_in_center(blk_row) and is_black_in_center(blk_col):
+    return True
+  else:
+    return False
+
+  '''
   udlr = [
     blk_row[:len(blk_row)//2],
     blk_row[len(blk_row)//2:],
@@ -100,7 +124,6 @@ def edge_pos(rgb_lst):
       edge_pos.append(2)
     else:
       edge_pos.append(1)
-
   try:
     first_blk_row = blk_row.index(1)
   except ValueError:
@@ -117,15 +140,16 @@ def edge_pos(rgb_lst):
     last_blk_col = len(blk_col) - 1 - blk_col[::-1].index(1)
   except ValueError:
     last_blk_col = 0
+  '''
 
   return {
     'black_row': blk_row,
     'black_col': blk_col,
     'edge_position': edge_pos,
-    'first_black_row': first_blk_row,
-    'first_black_col': first_blk_col,
-    'last_black_row': last_blk_row,
-    'last_black_col': last_blk_col
+    #'first_black_row': first_blk_row,
+    #'first_black_col': first_blk_col,
+    #'last_black_row': last_blk_row,
+    #'last_black_col': last_blk_col
   }
 
 def position_adjustment(im, boxes):
@@ -150,14 +174,14 @@ def position_adjustment(im, boxes):
     new_boxes.append(box)
   return new_boxes
 
-def draw_rect(im, boxes, fn):
+def draw_rect(im, boxes, file_name):
   for box in boxes:
     draw = ImageDraw.Draw(im)
     x, y, w, h = box
     draw.rectangle(((x, y), (w+x, h+y)), outline='red')
     del draw
   im = im.crop((842, 82, 1044, 994))
-  im.save(fn+'.png', "PNG")
+  im.save(file_name+'.png', "PNG")
   return im
 
 def get_right_block_position(im, boxes):
