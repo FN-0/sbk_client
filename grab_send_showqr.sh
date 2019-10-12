@@ -25,14 +25,14 @@ clientpath="/home/pi/sbk_client/"
 im_path="/home/pi/sbk_client/example.jpg"
 unclutter -idle 0.01 -root &
 cd ${clientpath}
-
+cp example.jpg ./images/${image_name1}
 notify-send  正在拍摄
 sleep 3
 
 #python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 pos_data="[[953,192,14,10],[953,248,14,10],[953,302,14,10],[953,359,14,10],[953,417,14,10],[953,472,14,10],[953,526,14,10],[953,580,14,10],[953,637,14,10],[953,692,14,10],[953,745,14,10],[953,799,14,10],[953,853,14,10],[953,906,14,10]]"
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/example.jpg" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
 echo ${res}
 if [[ "${res}" == "" ]]; then
 	cd ..
