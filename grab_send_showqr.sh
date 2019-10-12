@@ -46,38 +46,9 @@ if [ ! -d "./images" ]; then
 fi
 
 notify-send  正在拍摄
-# 拍摄图片
-# https://github.com/twam/v4l2grab
-./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
-./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
-
-# 上传图片
-# 如果上传失败显示含有上传失败文字的二维码
-# 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
-if [ ! -f ${image_name1} ]; then
-	echo "Image does not exist."
-	notify-send -t 0 图片未拍摄成功
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-	exit 0
-fi
-
-mv ${image_name1} images/
-cd images/
 
 python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1} 
-
-filename="/home/pi/sbk_client/images/block_pos.txt"
-pos_data=`head -n 1 ${filename}`
-feh -F "${datetime1}_调整后.png"
-
-if [[ "${pos_data}" == "0" ]]; then
-    notify-send 试纸位置错误
-	feh -F "${datetime1}.png"
-	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-    exit 0
-fi
 notify-send  正在上传
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
 
