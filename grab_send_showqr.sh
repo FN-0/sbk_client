@@ -24,32 +24,13 @@ image_name1=${mac_addr}${datetime1}.jpg
 clientpath="/home/pi/sbk_client/"
 im_path="/home/pi/sbk_client/example.jpg"
 unclutter -idle 0.01 -root &
-
-# 检查摄像头是否存在
-if [ ! -c "/dev/video0" ]; then
-	echo "no cam"
-	notify-send -t 0 设备连接断开
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-	exit 0
-fi
-
-# 检查路径是否存在
-if [ ! -x ${clientpath} ]; then
-	echo "No such dir"
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-	exit 0
-fi
 cd ${clientpath}
-
-if [ ! -d "./images" ]; then
-	mkdir images/
-fi
 
 notify-send  正在拍摄
 sleep 3
 
 #python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
-pos_data=
+pos_data="[[953,192,14,10],[953,248,14,10],[953,302,14,10],[953,359,14,10],[953,417,14,10],[953,472,14,10],[953,526,14,10],[953,580,14,10],[953,637,14,10],[953,692,14,10],[953,745,14,10],[953,799,14,10],[953,853,14,10],[953,906,14,10]]"
 notify-send  正在上传
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/example.jpg" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
 if [[ "${res}" == "" ]]; then
