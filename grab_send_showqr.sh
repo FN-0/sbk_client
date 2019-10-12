@@ -35,7 +35,7 @@ notify-send  正在上传
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
 echo ${res}
 if [[ "${res}" == "" ]]; then
-	cd ..
+	#cd ..
 	echo "upload failed"
 	qrencode -s 6 -o qr.bmp "上传失败"
 	# feh 显示二维码
@@ -44,7 +44,7 @@ if [[ "${res}" == "" ]]; then
 	notify-send -t 0 网络信号不佳
 elif [[ "${res}" != "" ]]; then
 	echo "qrcode"
-	cd ..
+	#cd ..
 	qrencode -s 4 -o qr.bmp "http://userclient.fun-med.cn/health?heal=${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 fi
