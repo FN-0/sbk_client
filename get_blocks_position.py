@@ -140,17 +140,18 @@ def is_right_position(rgb_lst, box_size):
     last_blk_col = len(blk_col) - 1 - blk_col[::-1].index(1)
   except ValueError:
     last_blk_col = 0
-  '''
+  
 
   return {
     'black_row': blk_row,
     'black_col': blk_col,
-    'edge_position': edge_pos,
-    #'first_black_row': first_blk_row,
-    #'first_black_col': first_blk_col,
-    #'last_black_row': last_blk_row,
-    #'last_black_col': last_blk_col
+    'edge_position': edge_pos，
+    'first_black_row': first_blk_row,
+    'first_black_col': first_blk_col,
+    'last_black_row': last_blk_row,
+    'last_black_col': last_blk_col
   }
+  '''
 
 def position_adjustment(im, boxes):
   rgb_lst0 = get_rgb_in_square(im, boxes[0])
