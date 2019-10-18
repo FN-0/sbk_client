@@ -37,6 +37,7 @@ notify-send  正在分析
 sleep 5
 
 ran=$((1 + RANDOM % 100))
+echo ${ran}
 
 if [[ ${ran} < 10 ]]; then
 	echo +
