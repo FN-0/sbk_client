@@ -40,11 +40,11 @@ ran=$((1 + RANDOM % 100))
 
 if [[ ${ran} < 10 ]]; then
 	echo +
-	qrencode -s 6 -o qr.bmp "潜血：阳性"
+	qrencode -s 10 -o qr.bmp "潜血：阳性"
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 else
 	echo -
-	qrencode -s 4 -o qr.bmp "潜血：阴性"
+	qrencode -s 10 -o qr.bmp "潜血：阴性"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 fi
 
