@@ -36,10 +36,11 @@ echo "Start uploading."
 notify-send  正在分析
 sleep 5
 
-ran=$((1 + RANDOM % 100))
+#ran=$((1 + RANDOM % 100))
+ran=9
 echo ${ran}
 
-if [[ ${ran} < 10 ]]; then
+if [ "${ran}" -lt 10 ]; then
 	echo +
 	qrencode -s 10 -o qr.bmp "潜血：阳性"
 	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
