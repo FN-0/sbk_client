@@ -36,8 +36,7 @@ echo "Start uploading."
 notify-send  正在分析
 sleep 5
 
-#ran=$((1 + RANDOM % 100))
-ran=9
+ran=$((1 + RANDOM % 100))
 echo ${ran}
 
 if [ "${ran}" -lt 10 ]; then
