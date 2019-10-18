@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 6 7
+python /home/pi/sbk_client/motor_controller.py 11 12 5 6
 
 # 获取当前时间
 datetime1=$(date +%Y%m%d%H%M%S)
