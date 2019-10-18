@@ -33,7 +33,7 @@ notify-send  正在拍摄
 sleep 5
 
 echo "Start uploading."
-notify-send  正在上传
+notify-send  正在分析
 sleep 5
 
 ran=$((1 + RANDOM % 100))
