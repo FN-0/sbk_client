@@ -30,9 +30,9 @@ notify-send  正在拍摄
 sleep 3
 
 #python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
-pos_data="[[953,192,14,10],[953,248,14,10],[953,302,14,10],[953,359,14,10],[953,417,14,10],[953,472,14,10],[953,526,14,10],[953,580,14,10],[953,637,14,10],[953,692,14,10],[953,745,14,10],[953,799,14,10],[953,853,14,10],[953,906,14,10]]"
+#pos_data="[[953,192,14,10],[953,248,14,10],[953,302,14,10],[953,359,14,10],[953,417,14,10],[953,472,14,10],[953,526,14,10],[953,580,14,10],[953,637,14,10],[953,692,14,10],[953,745,14,10],[953,799,14,10],[953,853,14,10],[953,906,14,10]]"
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"  http://121.40.169.248:8060/device/v2/upload/blo`
 echo ${res}
 if [[ "${res}" == "" ]]; then
 	#cd ..
@@ -45,7 +45,7 @@ if [[ "${res}" == "" ]]; then
 elif [[ "${res}" != "" ]]; then
 	echo "qrcode"
 	#cd ..
-	qrencode -s 4 -o qr.bmp "http://userclient.fun-med.cn/health?heal=${res}"
+	qrencode -s 4 -o qr.bmp "${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 fi
 exit 0
