@@ -9,9 +9,6 @@ do
 	repeat=0
 	str=`head /dev/urandom | cksum`
 	random_name=${str:0:5}
-	#until [ ${#datetime1} -eq 14 ]
-	#do	
-	#done
 	# 获取mac地址并去掉冒号
 	mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
 	# 图片名为mac地址+该程序运行时间
@@ -32,7 +29,6 @@ clientpath="/home/pi/sbk_client/"
 if [ ! -c "/dev/video0" ]; then
 	echo "no cam"
 	timeout=0
-	#feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 nowebcam.png &
 	while [ ! -c "/dev/video0" ]; do
 		sleep 2
 		notify-send -t 1000 设备未插入
@@ -68,12 +64,7 @@ if [ ! -f ${image_name} ]; then
 fi
 
 mv ${image_name} images/
-#notify-send 保存成功
-
-# shutdown in few minutes
 notify-send -t 0 ${datetime}
-#三分钟后将自动关机
-#sleep 180
-#shutdown now
+
 
 exit 0
