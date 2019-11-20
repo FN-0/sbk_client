@@ -80,7 +80,7 @@ fi
 
 echo "Start uploading."
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://121.40.169.248:8060/device/v2/upload/fluid/14items`
 echo ${res}
 # 使用程序返回值作为上传成功或失败的依据
 if [[ "${res}" == "" ]]; then
@@ -96,7 +96,7 @@ if [[ "${res}" == "" ]]; then
 elif [[ "${res}" != "" ]]; then
 	echo "qrcode"
 	cd ..
-	qrencode -s 4 -o qr.bmp "http://userclient.fun-med.cn/health?heal=${res}"
+	qrencode -s 4 -o qr.bmp "${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	notify-send -t 0 上传成功，五分钟后将自动关机
 	sleep 300
