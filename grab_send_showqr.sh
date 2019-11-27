@@ -133,7 +133,7 @@ elif [[ "${res}" != "" ]]; then
 	cd ..
 	# display qr code
 	#qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
-	qrencode -s 4 -o qr.bmp "http://userclient.fun-med.cn/health?heal=${res}"
+	qrencode -s 4 -o qr.bmp "${res}"
 	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
 	# re-upload
 	# 重传部分，循环上传并且删除（如果成功）
