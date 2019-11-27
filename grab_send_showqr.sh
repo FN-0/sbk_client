@@ -32,7 +32,7 @@ sleep 3
 #python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 #pos_data="[[953,192,14,10],[953,248,14,10],[953,302,14,10],[953,359,14,10],[953,417,14,10],[953,472,14,10],[953,526,14,10],[953,580,14,10],[953,637,14,10],[953,692,14,10],[953,745,14,10],[953,799,14,10],[953,853,14,10],[953,906,14,10]]"
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"  http://devicetest.fun-med.cn/device/v2/upload/fluid/blo`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/blo`
 echo ${res}
 if [[ "${res}" == "" ]]; then
 	#cd ..
