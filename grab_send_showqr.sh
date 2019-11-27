@@ -111,7 +111,7 @@ python /home/pi/sbk_client/motor_controller.py 15 16 1 1 &
 
 echo "Start uploading."
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://121.40.169.248:9080/picture/FiveimageUpload`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "picture1=@/home/pi/sbk_client/images/${image_name2}" -F "picture2=@/home/pi/sbk_client/images/${image_name3}" -F "picture3=@/home/pi/sbk_client/images/${image_name4}" -F "picture4=@/home/pi/sbk_client/images/${image_name5}" http://deviceapi.fun-med.cn/device/v1/upload/urine/14items`
 echo ${res}
 #echo ${res:0:1}
 #subl=${res#*:}
