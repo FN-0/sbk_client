@@ -80,7 +80,7 @@ fi
 
 echo "Start uploading."
 notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://121.40.169.248:8060/device/v2/upload/fluid/14items`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
 echo ${res}
 # 使用程序返回值作为上传成功或失败的依据
 if [[ "${res}" == "" ]]; then
