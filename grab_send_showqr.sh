@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 2 3
+python /home/pi/sbk_client/motor_controller.py 11 12 3.5 4.5
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -64,7 +64,7 @@ fi
 mv ${image_name1} images/
 cd images/
 
-python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
+#python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
 python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1} 
 
