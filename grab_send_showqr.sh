@@ -61,6 +61,7 @@ if [ ! -f ${image_name1} ]; then
 	exit 0
 fi
 
+python /home/pi/sbk_client/edit_image.py ${image_name1}
 mv ${image_name1} images/
 cd images/
 
