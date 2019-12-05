@@ -45,7 +45,7 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
-notify-send  正在拍摄
+notify-send  正在扫描
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
@@ -56,7 +56,7 @@ notify-send  正在拍摄
 # 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
 if [ ! -f ${image_name1} ]; then
 	echo "Image does not exist."
-	notify-send -t 0 图片未拍摄成功
+	notify-send -t 0 图片未扫描成功
 	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
@@ -79,7 +79,7 @@ if [[ "${pos_data}" == "0" ]]; then
 fi
 
 echo "Start uploading."
-notify-send  正在上传
+notify-send  正在处理
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
 echo ${res}
 # 使用程序返回值作为上传成功或失败的依据
