@@ -71,7 +71,6 @@ python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1}
 
 filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
-feh -F "${datetime1}_调整后.png"
 
 if [[ "${pos_data}" == "0" ]]; then
     notify-send -t 0 试纸位置错误
