@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 2 3
+python /home/pi/sbk_client/motor_controller.py 11 12 3.5 4.5
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -45,7 +45,7 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
-notify-send  正在拍摄
+notify-send  正在扫描
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
@@ -56,7 +56,7 @@ notify-send  正在拍摄
 # 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
 if [ ! -f ${image_name1} ]; then
 	echo "Image does not exist."
-	notify-send -t 0 图片未拍摄成功
+	notify-send -t 0 图片未扫描成功
 	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
@@ -64,7 +64,7 @@ fi
 mv ${image_name1} images/
 cd images/
 
-python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
+#python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
 python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1} 
 
@@ -73,12 +73,35 @@ pos_data=`head -n 1 ${filename}`
 feh -F "${datetime1}_调整后.png"
 
 if [[ "${pos_data}" == "0" ]]; then
-    notify-send 试纸位置错误
-	feh -F "${datetime1}.png"
+    notify-send -t 0 试纸位置错误
+	#feh -F "${datetime1}.png"
 	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
     exit 0
 fi
-notify-send  正在上传
+
+echo "Start uploading."
+notify-send  正在处理
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
+echo ${res}
+# 使用程序返回值作为上传成功或失败的依据
+if [[ "${res}" == "" ]]; then
+	cd ..
+	echo "upload failed"
+	qrencode -s 6 -o qr.bmp "上传失败"
+	# feh 显示二维码
+	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+	# 5分钟后自动关机
+	notify-send -t 0 上传失败，五分钟后将自动关机
+	sleep 300
+	shutdown now
+elif [[ "${res}" != "" ]]; then
+	echo "qrcode"
+	cd ..
+	qrencode -s 4 -o qr.bmp "${res}"
+	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+	notify-send -t 0 上传成功，五分钟后将自动关机
+	sleep 300
+	shutdown now
+fi
 
 exit 0
