@@ -76,7 +76,7 @@ res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"
 
 if [[ "${pos_data}" == "0" ]]; then
     notify-send 试纸位置错误
-		feh -F "${datetime1}.png"
+		feh -F "${datetime1}.png" &
 	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
     exit 0
 fi
