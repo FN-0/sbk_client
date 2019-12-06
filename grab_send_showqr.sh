@@ -70,13 +70,13 @@ python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1}
 
 filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
-feh -F "${datetime1}_调整后.png"
 notify-send  正在上传
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
 
+feh -F "${datetime1}_调整后.png"
 if [[ "${pos_data}" == "0" ]]; then
     notify-send 试纸位置错误
-		feh -F "${datetime1}.png" &
+		feh -F "${datetime1}.png" 
 	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
     exit 0
 fi
