@@ -7,4 +7,4 @@ from PIL import Image
 for image in sys.argv[1:]:
   img = Image.open(image)
   transposed  = img.transpose(Image.ROTATE_180)
-  transposed.save('image.png')
+  transposed.save(image)
