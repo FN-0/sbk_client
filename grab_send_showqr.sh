@@ -61,6 +61,7 @@ if [ ! -f ${image_name1} ]; then
 	exit 0
 fi
 
+python edit_image.py ${image_name1}
 mv ${image_name1} images/
 cd images/
 
