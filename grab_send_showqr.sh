@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-python /home/pi/sbk_client/motor_controller.py 11 12 3.5 4.5
+python /home/pi/sbk_client/motor_controller.py 11 12 6.5 7
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -29,14 +29,14 @@ unclutter -idle 0.01 -root &
 if [ ! -c "/dev/video0" ]; then
 	echo "no cam"
 	notify-send -t 0 设备连接断开
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
 
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
 cd ${clientpath}
@@ -57,7 +57,7 @@ notify-send  正在扫描
 if [ ! -f ${image_name1} ]; then
 	echo "Image does not exist."
 	notify-send -t 0 图片未扫描成功
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
 	exit 0
 fi
 
