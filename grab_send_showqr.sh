@@ -66,19 +66,21 @@ cd images/
 
 python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1} 
+#python /home/pi/sbk_client/get_blocks_position.py ${image_name1} ${datetime1} 
 
-filename="/home/pi/sbk_client/images/block_pos.txt"
-pos_data=`head -n 1 ${filename}`
-feh -F "${datetime1}_调整后.png"
+#filename="/home/pi/sbk_client/images/block_pos.txt"
+#pos_data=`head -n 1 ${filename}`
+#feh -F "${datetime1}_调整后.png"
 
-if [[ "${pos_data}" == "0" ]]; then
-    notify-send 试纸位置错误
-	feh -F "${datetime1}.png"
+#if [[ "${pos_data}" == "0" ]]; then
+#    notify-send 试纸位置错误
+#	feh -F "${datetime1}.png"
 	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-    exit 0
-fi
-notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
+#    exit 0
+#fi
+#notify-send  正在上传
+#res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "rgb=${pos_data}"  http://121.40.169.248:9080/picture/python/pythonUploadAndAnalysis`
+
+python /home/pi/sbk_client/algorithm_blo_detection.py ${image_name1}
 
 exit 0
