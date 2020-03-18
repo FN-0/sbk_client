@@ -63,7 +63,7 @@ cd images/
 
 python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/algorithm_blo_detection.py ${image_name1}
+python3 /home/pi/sbk_client/algorithm_blo_detection.py ${image_name1}
 
 filename="/home/pi/sbk_client/res.txt"
 res=`head -n 1 ${filename}`
