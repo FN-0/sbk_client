@@ -177,8 +177,10 @@ def main():
     results = []
     for val in rgb_data:
       results.append(most_approx(val, BLO))
-    print(results)
-    print(results2report(results))
+    #print(results)
+    with open('/home/pi/sbk_client/res.txt', 'w') as f:
+      f.write(results2report(results))
+    f.close()
 
 if __name__ == "__main__":
   main()
