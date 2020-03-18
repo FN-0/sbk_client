@@ -21,29 +21,12 @@ rst_lst = {
 }
 
 def std(lst, x):
-  """Calculate the standard deviation with the list and x.
-
-  Parameters:
-    lst: A list of tuple.
-    x: A number given to be calculated the deviation with the list.
-
-  Returns:
-    A float number.
-  """
   if len(lst) != 0:
     return np.sqrt(np.mean(abs(np.array(lst) - x)**2))
   else:
     print('The lenght of list is 0.')
 
 def make_int_aver(lst):
-  """Calculate the average of the list and round.
- 
-  Parameters:
-    lst: A flat list that only contains number.
-
-  Returns:
-    An integer.
-  """
   if len(lst) != 0:
     return round(sum(lst)/len(lst))
   else:
@@ -60,17 +43,6 @@ def most_approx(src_color, dst_color):
   return approx.index(min(approx))
 
 def get_rgb_in_square(im, box):
-  """Get rgb data from the square region.
-
-  Parameters:
-    im: An image object.
-    box: A square region with (posx, posy, sizex, sizey).
-
-  Returns:
-    A list contain rgb data. For example:
-    [ (157, 152, 156), (157, 152, 156), (157, 152, 156),
-      (157, 152, 156), (157, 152, 156), (157, 152, 156) ]
-  """
   posx, posy, sizex, sizey = box
   region = im.crop(box)
   lst = []
@@ -83,15 +55,6 @@ def get_rgb_in_square(im, box):
   return lst
 
 def fetch_aver_rgb(lst):
-  """Calculate the average rgb of the rgb list.
-
-  Parameters:
-    lst: A list contain rgb data. For example:
-    [ (157, 152, 156), (157, 152, 156) ]
-
-  Returns:
-    A tuple of average rgb.
-  """
   if len(lst) != 0:
     r, g, b = [ [item[i] for item in lst] for i in range(len(lst[0])) ]
     return (make_int_aver(r), make_int_aver(g), make_int_aver(b))
@@ -99,15 +62,6 @@ def fetch_aver_rgb(lst):
     print('The lenght of list is 0.')
 
 def get_main_color(im, box):
-  """Get the main color of the region.
-
-  Parameters:
-    im: An image object.
-    box: Four values of position and size.
-
-  Returns:
-    Main rgb value of the region.
-  """
   color_lst = get_rgb_in_square(im, box)
   if color_lst == 0:
     print('No color data.')
