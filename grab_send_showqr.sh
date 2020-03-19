@@ -2,7 +2,7 @@
 
 # 请注意使用'LF换行'
 
-#python /home/pi/sbk_client/motor_controller.py 11 12 6 7
+python /home/pi/sbk_client/motor_controller.py 11 12 2 3
 
 ping -c 1 121.40.169.248 > /dev/null 2>&1
 while [ $? -ne 0 ]; do
@@ -22,30 +22,55 @@ mac_addr="`cat /sys/class/net/wlan0/address | sed 's/://g'`"
 image_name1=${mac_addr}${datetime1}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
-im_path="/home/pi/sbk_client/example.jpg"
-unclutter -idle 0.01 -root &
-cd ${clientpath}
-cp example.jpg ./images/${image_name1}
-notify-send  正在拍摄
-sleep 3
 
-#python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
-#pos_data="[[953,192,14,10],[953,248,14,10],[953,302,14,10],[953,359,14,10],[953,417,14,10],[953,472,14,10],[953,526,14,10],[953,580,14,10],[953,637,14,10],[953,692,14,10],[953,745,14,10],[953,799,14,10],[953,853,14,10],[953,906,14,10]]"
-notify-send  正在上传
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/blo`
-echo ${res}
-if [[ "${res}" == "" ]]; then
-	#cd ..
-	echo "upload failed"
-	qrencode -s 6 -o qr.bmp "上传失败"
-	# feh 显示二维码
-	feh -Y -F -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
-	# 5分钟后自动关机
-	notify-send -t 0 网络信号不佳
-elif [[ "${res}" != "" ]]; then
-	echo "qrcode"
-	#cd ..
-	qrencode -s 4 -o qr.bmp "${res}"
-	feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+unclutter -idle 0.01 -root &
+
+# 检查摄像头是否存在
+if [ ! -c "/dev/video0" ]; then
+	echo "no cam"
+	notify-send -t 0 设备连接断开
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	exit 0
 fi
+
+# 检查路径是否存在
+if [ ! -x ${clientpath} ]; then
+	echo "No such dir"
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	exit 0
+fi
+cd ${clientpath}
+
+if [ ! -d "./images" ]; then
+	mkdir images/
+fi
+
+notify-send  正在拍摄
+# 拍摄图片
+# https://github.com/twam/v4l2grab
+./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
+./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
+
+# 上传图片
+# 如果上传失败显示含有上传失败文字的二维码
+# 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
+if [ ! -f ${image_name1} ]; then
+	echo "Image does not exist."
+	notify-send -t 0 图片未拍摄成功
+	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
+	exit 0
+fi
+
+mv ${image_name1} images/
+cd images/
+
+python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
+
+filename="/home/pi/sbk_client/images/block_pos.txt"
+pos_data=`head -n 1 ${filename}`
+notify-send  正在上传
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
+
+feh -F ${image_name1}
+
 exit 0
