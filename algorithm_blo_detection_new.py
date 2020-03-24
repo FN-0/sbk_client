@@ -197,7 +197,7 @@ def main():
   print(posn)
 
   f = open('res.txt', 'w')
-  f.write(str(posn)+'\n')
+  f.write(str(posn)+'\r\n')
 
   if len(posn) == 4:
     square_size = 6
