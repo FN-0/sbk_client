@@ -144,7 +144,7 @@ def get_position(img_path, relative_position_1, SCALE, RADIAN, src_point):
   points = []
   for block, rd_value in relative_position_1.items():
     point = get_point_by_radian(rd_value['dist']*SCALE[1], rd_value['rad']+RADIAN, src_point)
-    point = tuple([round(x) for x in point])
+    point = tuple([int(round(x)) for x in point])
     points.append(point)
   return points
 
@@ -208,7 +208,7 @@ def main():
     pos_list = get_position(img_path, relative_position_1, SCALE, RADIAN, posn[b'1'])
     if pos_list:
       box_list = pos2box(pos_list, square_size, square_size)
-      #draw_rect(img_path, box_list)
+      draw_rect(img_path, box_list)
       rgb_data = read_boxes_rgb(img, box_list)
       results = []
       for val in rgb_data:
