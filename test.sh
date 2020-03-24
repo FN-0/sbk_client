@@ -21,7 +21,7 @@ image_name1=${mac_addr}${datetime1}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
-python /home/pi/sbk_client/algorithm_blo_detection_new.py /test/test.jpg
+python /home/pi/sbk_client/algorithm_blo_detection_new.py /home/pi/sbk_client/test/test.jpg
 
 filename="/home/pi/sbk_client/res.txt"
 res=$(<${filename})
