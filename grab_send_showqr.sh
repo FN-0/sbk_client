@@ -63,10 +63,10 @@ cd images/
 
 python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/algorithm_blo_detection.py ${image_name1}
+python /home/pi/sbk_client/algorithm_blo_detection_new.py ${image_name1}
 
 filename="/home/pi/sbk_client/res.txt"
-res=`head -n 1 ${filename}`
+res=$(<${filename})
 
 qrencode -s 4 -o qr.bmp "${res}"
 feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &

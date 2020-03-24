@@ -1,6 +1,13 @@
+from __future__ import print_function
+
 import sys
 import cv2
+import math
 import numpy as np
+from PIL import Image, ImageDraw
+from pyzbar.pyzbar import decode, ZBarSymbol
+
+from block_position import relative_position_1
 
 def get_threshold(img):
   thres = 100
@@ -29,104 +36,160 @@ def has_black_px(sqa, min_amount_of_black_px):
   else:
     return False
 
-def is_black_beside(th, pos, square_size, min_amount_of_black_px):
-  udlr = {}
-  x, y = pos
-  u = th[x-square_size:x, y:y +square_size]
-  d = th[x+square_size:x+2*square_size, y:y+square_size]
-  l = th[x:x+square_size, y-square_size:y]
-  r = th[x:x+square_size, y+square_size:y+2*square_size]
-  for n, a in zip(('u', 'd', 'l', 'r'),(u, d, l, r)):
-    udlr[n] = has_black_px(a, min_amount_of_black_px)
-  if list(udlr.values()).count(True) == 4:
-    return True
-  else:
-    return False
+def get_radian(a, b, c):
+  rad = math.atan2(c[1]-b[1], c[0]-b[0]) - math.atan2(a[1]-b[1], a[0]-b[0])
+  return -rad
 
-def detect_processor(th, step_size, square_size, min_amount_of_black_px):
-  row, col = th.shape
-  x = y = square_size
-  around_tect_sig = False
-  times_no_black = 0
-  detect_block_pos = []
+def central(points):
+  sumx = sumy = 0
+  for x, y in points:
+    sumx += x
+    sumy += y
+  return (sumx/len(points), sumy/len(points))
+
+def distance(p1, p2):
+  x1, y1 = p1
+  x2, y2 = p2
+  return math.hypot(x2-x1, y2-y1)
+
+def get_qr_data(img):
+  qr_data = decode(img, symbols=[ZBarSymbol.QRCODE])
+  return qr_data
+
+def custom_blur_demo(image):
+  kernel = np.array([[0, -1, 0], [-1, 5, -1], [0, -1, 0]], np.float32) #锐化
+  img = cv2.filter2D(image, -1, kernel=kernel)
+  #cv2.imshow("custom_blur_demo", img)
+  #cv2.waitKey()
+  return img
+
+def unsharp_mask(image, kernel_size=(5, 5), sigma=1.0, amount=1.0, threshold=0):
+  """Return a sharpened version of the image, using an unsharp mask."""
+  blurred = cv2.GaussianBlur(image, kernel_size, sigma)
+  sharpened = float(amount + 1) * image - float(amount) * blurred
+  sharpened = np.maximum(sharpened, np.zeros(sharpened.shape))
+  sharpened = np.minimum(sharpened, 255 * np.ones(sharpened.shape))
+  sharpened = sharpened.round().astype(np.uint8)
+  if threshold > 0:
+    low_contrast_mask = np.absolute(image - blurred) < threshold
+    np.copyto(sharpened, image, where=low_contrast_mask)
+  return sharpened
+  
+def bounding_box_and_polygon(img_path):
+  image = Image.open(img_path).convert('RGB')
+  draw = ImageDraw.Draw(image)
+  for barcode in get_qr_data(cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)):
+    rect = barcode.rect
+    draw.rectangle(
+        (
+            (rect.left, rect.top),
+            (rect.left + rect.width, rect.top + rect .height)
+        ),
+        outline='#0080ff'
+    )
+    draw.polygon(barcode.polygon, outline='red')
+  image.save('bounding_box_and_polygon.png')
+
+def get4point(qr_data):
+  pos4 = {}
+  for qd in qr_data:
+    pos4[qd.data] = central(qd.polygon)
+  return pos4
+
+def update_scale(pos4, DIST):
+  # TODO: 分别分析纵横距离
+  point1 = pos4[b'1']
+  point2 = pos4[b'2']
+  point3 = pos4[b'3']
+  point4 = pos4[b'4']
+  dist_y = distance(point1, point3)
+  dist_x = distance(point1, point2)
+
+  scale_y = dist_y / DIST[0]
+  scale_x = dist_x / DIST[1]
+
+  return (scale_y, scale_x)
+
+def update_radian(point_mid, point_src):
+  x3, y3 = point_mid
+  x4, y4 = point_src
+  rad = get_radian(point_src, point_mid, (x3+1, y3))
+  return rad
+
+def get_point_by_radian(dist, radian, point0=(0, 0)):
+  x0, y0 = point0
+  X = dist * math.cos(radian) + x0
+  Y = dist * math.sin(radian) + y0
+  return (X, Y)
+
+def qr_detector(img, STEP_SIZE, SQUARE_SIZE):
+  row, col, dim = img.shape
+  x = y = 0
+  posdict = {}
   while True:
     pos = [x, y]
-    if y + step_size > row:
+    if y + SQUARE_SIZE > row:
       break
-    sqa = th[x:x+square_size,y:y+square_size]
-    if has_black_px(sqa, min_amount_of_black_px):
-      around_tect_sig = True
-      times_no_black = 0
-    if times_no_black > 10 and around_tect_sig == True:
-      around_tect_sig = False
-    if around_tect_sig == True and is_all_white(sqa):
-      if is_black_beside(th, pos, square_size, min_amount_of_black_px):
-        detect_block_pos.append(pos)
-    if x + step_size <= col:
-      x = x + step_size
+    crop_img = img[y:y+SQUARE_SIZE, x:x+SQUARE_SIZE]
+    qrd = get_qr_data(crop_img)
+    if qrd:
+      cx, cy = central(qrd[0].polygon)
+      posdict[qrd[0].data] = (cx+x, cy+y)
+    if x + SQUARE_SIZE <= col:
+      x = x + STEP_SIZE
     else:
-      y = y + step_size
-      x = square_size
-    times_no_black += 1
-  return detect_block_pos
+      y = y + STEP_SIZE
+      x = 0
+  return posdict
 
-def merge_near_rect(origin_list, square_size, outcome=[]):
-  group_pos = outcome
-  group_list = [origin_list[0]]
-  for pos in origin_list[1:]:
-    y, x = pos
-    for grouped_pos in group_list:
-      Y, X = grouped_pos
-      if (abs(x - X) <= square_size and abs(y - Y) <= square_size
-            and pos not in group_list):
-        group_list.append(pos)
-  group_pos.append(list(np.mean(np.array(group_list), axis=0, dtype=np.integer)))
-  rest_list = [i for i in origin_list if i not in group_list]
-  if rest_list:
-    merge_near_rect(rest_list, square_size, group_pos)
-  return group_pos
-
-def draw_rect(img, detect_block_pos, square_size, margin, file_name):
-  for pos in detect_block_pos:
-    y, x = pos
-    #x += margin
-    start_point = (x, y)
-    end_point = (x+square_size, y+square_size)
-    color = (0, 0, 255)
-    thickness = 1
-    img = cv2.rectangle(img, start_point, end_point, color, thickness) 
-  cv2.imwrite(file_name, img)
-  #cv2.imshow('t', img)
-  #cv2.waitKey()
-
-def crop_image(img, margin):
-  return img[:, margin:-margin]
-
-def position_in_origin_img(pos_list, margin):
-  real_pos_list = []
-  for pos in pos_list:
-    pos[1] += margin
-    real_pos_list.append(pos)
-  return real_pos_list
+def draw_point(img_path, relative_position_1, SCALE, RADIAN, src_point):
+  img = cv2.imread(img_path)
+  for block, rd_value in relative_position_1.items():
+    point = get_point_by_radian(rd_value['dist']*SCALE[1], rd_value['rad']+RADIAN, src_point)
+    point = tuple([round(x) for x in point])
+    print(point)
+    cv2.circle(img, point, 2, (0, 0, 255), 0)
+  cv2.imwrite('test.jpg', img)
 
 def main():
-  step_size = 2
-  square_size = 12 # 80px for phone, 15px for 1080p
-  min_amount_of_black_px = 10 # just test
-  margin = 450
+
+  '''yaxis = 1947
+  points = (
+    (839, yaxis),
+    (956, yaxis),
+    (1073, yaxis),
+    (1190, yaxis),
+    (1307, yaxis),
+    (1425, yaxis),
+    (1541, yaxis),
+  )
+  p1 = (648.5, 713.5)
+  i = 1
+  for p in points:
+    RADIAN = update_radian(p1, p)
+    dist = distance(p, p1)
+    print("'b43%d' : {'rad' : %.3f, 'dist': %.3f}," % (i, RADIAN, dist))
+    i += 1
+  input()'''
+
+  # data initialize
+  DIST = [DIST_Y, DIST_X] = (990, 1082)
+  SCALE = [SCALE_Y, SCALE_X] = (1, 1) # 比例关系
+  RADIAN = 0 # 指偏离基准线的角度
+  STEP_SIZE = 100
+  SQUARE_SIZE = 270
 
   img_path = sys.argv[1]
-  img = cv2.imread(img_path, 0)
-  img = crop_image(img, margin)
-  th = get_threshold(img)
-  detect_block_pos = detect_processor(
-    th, step_size, square_size, min_amount_of_black_px)
-  if detect_block_pos:
-    positions = merge_near_rect(detect_block_pos, square_size)
-    #print(positions)
-    positions = position_in_origin_img(positions, margin)
-    img = cv2.imread(img_path)
-    draw_rect(img, positions, square_size, margin, 'position.jpg')
+  img = cv2.imread(img_path)
+  img = unsharp_mask(img)
+  posn = qr_detector(img, STEP_SIZE, SQUARE_SIZE)
+  print(posn)
+
+  if len(posn) == 4:
+    SCALE = update_scale(posn, DIST)
+    RADIAN = update_radian(posn[b'1'], posn[b'2'])
+    print(RADIAN)
+    draw_point(img_path, relative_position_1, SCALE, RADIAN, posn[b'1'])
 
 if __name__ == "__main__":
   main()

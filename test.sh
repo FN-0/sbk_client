@@ -21,10 +21,10 @@ image_name1=${mac_addr}${datetime1}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
-python /home/pi/sbk_client/algorithm_blo_detection.py /test/test.jpg
+python /home/pi/sbk_client/algorithm_blo_detection_new.py /test/test.jpg
 
 filename="/home/pi/sbk_client/res.txt"
-res=`head -n 1 ${filename}`
+res=$(<${filename})
 
 qrencode -s 4 -o qr.bmp "${res}"
 feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
