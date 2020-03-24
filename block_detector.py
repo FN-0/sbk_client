@@ -97,7 +97,6 @@ def get4point(qr_data):
   return pos4
 
 def update_scale(pos4, DIST):
-  # TODO: 分别分析纵横距离
   point1 = pos4[b'1']
   point2 = pos4[b'2']
   point3 = pos4[b'3']
@@ -174,8 +173,8 @@ def main():
 
   # data initialize
   DIST = [DIST_Y, DIST_X] = (990, 1082)
-  SCALE = [SCALE_Y, SCALE_X] = (1, 1) # 比例关系
-  RADIAN = 0 # 指偏离基准线的角度
+  SCALE = [SCALE_Y, SCALE_X] = (1, 1)
+  RADIAN = 0
   STEP_SIZE = 100
   SQUARE_SIZE = 270
 
