@@ -208,7 +208,7 @@ def main():
     pos_list = get_position(img_path, relative_position_1, SCALE, RADIAN, posn[b'1'])
     if pos_list:
       box_list = pos2box(pos_list, square_size, square_size)
-      draw_rect(img_path, box_list)
+      #draw_rect(img_path, box_list)
       rgb_data = read_boxes_rgb(img, box_list)
       results = []
       for val in rgb_data:
