@@ -185,8 +185,8 @@ def results2report(results):
 def main():
   # data initialize
   DIST = [DIST_Y, DIST_X] = (990, 1082)
-  SCALE = [SCALE_Y, SCALE_X] = (1, 1) # 比例关系
-  RADIAN = 0 # 指偏离基准线的角度
+  SCALE = [SCALE_Y, SCALE_X] = (1, 1)
+  RADIAN = 0
   STEP_SIZE = 100
   SQUARE_SIZE = 270
 
@@ -194,6 +194,7 @@ def main():
   img = cv2.imread(img_path)
   img = unsharp_mask(img)
   posn = qr_detector(img, STEP_SIZE, SQUARE_SIZE)
+  print(posn)
 
   f = open('res.txt', 'w')
   f.write(str(posn)+'\n')
