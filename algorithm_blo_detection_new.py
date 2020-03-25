@@ -196,7 +196,7 @@ def main():
   posn = qr_detector(img, STEP_SIZE, SQUARE_SIZE)
   print(posn)
 
-  f = open('res.txt', 'w')
+  f = open('/home/pi/sbk_client/res.txt', 'w')
   f.write(str(posn)+'\n')
 
   if len(posn) == 4:
