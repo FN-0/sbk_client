@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 from block_detector import unsharp_mask, qr_detector, update_radian
 from block_detector import update_scale, get_point_by_radian
-from block_position import relative_position_1
+from block_position import relative_position_photo
 
 BLO = (
     (151, 162, 149),
@@ -161,7 +161,7 @@ def draw_rect(img_path, box_list):
   for box in box_list:
     x1, y1 = box[0], box[1]
     x2, y2 = box[0]+box[2], box[1]+box[3]
-    cv2.rectangle(img, (x1, y1), (x2, y2), (255,0,0), 2)
+    cv2.rectangle(img, (x1, y1), (x2, y2), (255,0,0), 1)
   cv2.imwrite('test.jpg', img)
 
 def results2blocks(results, f):
@@ -184,11 +184,11 @@ def results2report(results):
 
 def main():
   # data initialize
-  DIST = [DIST_Y, DIST_X] = (990, 1082)
+  DIST = [DIST_Y, DIST_X] = (570, 618)
   SCALE = [SCALE_Y, SCALE_X] = (1, 1)
   RADIAN = 0
-  STEP_SIZE = 100
-  SQUARE_SIZE = 270
+  STEP_SIZE = 50
+  SQUARE_SIZE = 150
 
   img_path = sys.argv[1]
   img = cv2.imread(img_path)
@@ -200,12 +200,12 @@ def main():
   f.write(str(posn)+'\n')
 
   if len(posn) == 4:
-    square_size = 6
+    square_size = 4
     img = Image.open(img_path).convert('RGB')
     SCALE = update_scale(posn, DIST)
     RADIAN = update_radian(posn[b'1'], posn[b'2'])
     f.write(str(RADIAN)+'\n')
-    pos_list = get_position(img_path, relative_position_1, SCALE, RADIAN, posn[b'1'])
+    pos_list = get_position(img_path, relative_position_photo, SCALE, RADIAN, posn[b'1'])
     if pos_list:
       box_list = pos2box(pos_list, square_size, square_size)
       draw_rect(img_path, box_list)

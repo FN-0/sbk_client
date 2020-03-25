@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image, ImageDraw
 from pyzbar.pyzbar import decode, ZBarSymbol
 
-from block_position import relative_position_1
+from block_position import relative_position_photo
 
 def get_threshold(img):
   thres = 100
@@ -172,11 +172,11 @@ def main():
   input()'''
 
   # data initialize
-  DIST = [DIST_Y, DIST_X] = (990, 1082)
+  DIST = [DIST_Y, DIST_X] = (570, 618)
   SCALE = [SCALE_Y, SCALE_X] = (1, 1)
   RADIAN = 0
-  STEP_SIZE = 100
-  SQUARE_SIZE = 270
+  STEP_SIZE = 50
+  SQUARE_SIZE = 150
 
   img_path = sys.argv[1]
   img = cv2.imread(img_path)
@@ -188,7 +188,7 @@ def main():
     SCALE = update_scale(posn, DIST)
     RADIAN = update_radian(posn[b'1'], posn[b'2'])
     print(RADIAN)
-    draw_point(img_path, relative_position_1, SCALE, RADIAN, posn[b'1'])
+    draw_point(img_path, relative_position_photo, SCALE, RADIAN, posn[b'1'])
 
 if __name__ == "__main__":
   main()

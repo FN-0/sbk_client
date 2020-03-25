@@ -64,7 +64,14 @@ relative_position_1 = {
   'b437' : {'rad' : 0.944, 'dist': 1522.524},
 }
 
-relative_position_3 = {
+relative_position_photo = {
+  'b111' : {'rad' : -1.010, 'dist': 188.389},
+  'b112' : {'rad' : -0.753, 'dist': 233.292},
+  'b113' : {'rad' : -0.586, 'dist': 288.375},
+  'b114' : {'rad' : -0.475, 'dist': 348.849},
+  'b115' : {'rad' : -0.398, 'dist': 411.425},
+  'b116' : {'rad' : -0.340, 'dist': 477.667},
+  'b117' : {'rad' : -0.298, 'dist': 543.195},
 }
 
 def main():
