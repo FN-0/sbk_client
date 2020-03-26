@@ -184,7 +184,7 @@ def results2report(results):
 
 def main():
   # data initialize
-  DIST = [DIST_Y, DIST_X] = (570, 618)
+  DIST = [DIST_Y, DIST_X] = (990, 1082)
   SCALE = [SCALE_Y, SCALE_X] = (1, 1)
   RADIAN = 0
   STEP_SIZE = 30
@@ -201,7 +201,7 @@ def main():
   f.write(str(posn)+'\n')
 
   if len(posn) == 4:
-    square_size = 4
+    square_size = 6
     img = Image.open(img_path).convert('RGB')
     SCALE = update_scale(posn, DIST)
     RADIAN = update_radian(posn[b'1'], posn[b'2'])
