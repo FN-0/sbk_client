@@ -161,7 +161,7 @@ def draw_rect(img_path, box_list):
   for box in box_list:
     x1, y1 = box[0], box[1]
     x2, y2 = box[0]+box[2], box[1]+box[3]
-    cv2.rectangle(img, (x1, y1), (x2, y2), (255,0,0), 1)
+    cv2.rectangle(img, (x1, y1), (x2, y2), (0,0,255), 1)
   cv2.imwrite('test.jpg', img)
 
 def results2blocks(results, f):
@@ -201,7 +201,7 @@ def main():
   f.write(str(posn)+'\n')
 
   if len(posn) == 4:
-    square_size = 6
+    square_size = 4
     img = Image.open(img_path).convert('RGB')
     SCALE = update_scale(posn, DIST)
     RADIAN = update_radian(posn[b'1'], posn[b'2'])
