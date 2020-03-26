@@ -187,16 +187,17 @@ def main():
   DIST = [DIST_Y, DIST_X] = (570, 618)
   SCALE = [SCALE_Y, SCALE_X] = (1, 1)
   RADIAN = 0
-  STEP_SIZE = 50
-  SQUARE_SIZE = 150
+  STEP_SIZE = 30
+  SQUARE_SIZE = 170
 
   img_path = sys.argv[1]
   img = cv2.imread(img_path)
-  img = unsharp_mask(img)
+  #img = unsharp_mask(img)
   posn = qr_detector(img, STEP_SIZE, SQUARE_SIZE)
   print(posn)
 
   f = open('/home/pi/sbk_client/res.txt', 'w')
+  #f = open('res.txt', 'w')
   f.write(str(posn)+'\n')
 
   if len(posn) == 4:
