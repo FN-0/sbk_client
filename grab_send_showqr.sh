@@ -61,9 +61,9 @@ fi
 mv ${image_name1} images/
 cd images/
 
-python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
+python /home/pi/sbk_client/image_calibration.py ${image_name1}
 
-python /home/pi/sbk_client/algorithm_blo_detection_new.py ${image_name1}
+python /home/pi/sbk_client/algorithm_blo_detection_new.py "calibresult.png"
 
 filename="/home/pi/sbk_client/block_pos.txt"
 pos_data=`head -n 1 ${filename}`

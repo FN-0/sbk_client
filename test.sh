@@ -21,11 +21,10 @@ image_name1=${mac_addr}${datetime1}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
-python /home/pi/sbk_client/algorithm_blo_detection_new.py /home/pi/sbk_client/test/test.jpg
+cd test/
 
-filename="/home/pi/sbk_client/block_pos.txt"
-pos_data=`head -n 1 ${filename}`
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/test/b827ebd33d8920200323140246.jpg" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
+python /home/pi/sbk_client/image_calibration.py /home/pi/sbk_client/test/b827ebd33d8920200323140246.jpg
+python /home/pi/sbk_client/algorithm_blo_detection_new.py /home/pi/sbk_client/test/calibresult.png
 
 filename="/home/pi/sbk_client/res.txt"
 res=$(cat ${filename})
