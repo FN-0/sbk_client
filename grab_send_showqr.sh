@@ -72,6 +72,6 @@ res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"
 filename="/home/pi/sbk_client/res.txt"
 res=$(cat ${filename})
 qrencode -s 4 -o qr.bmp "${res}"
-feh -Y -x -m -H 480 -W 800 --bg bg.png -a 0 -E 470 -y 470 qr.bmp &
+feh -Y -x -m -H 480 -W 800 --bg /home/pi/sbk_client/bg.png -a 0 -E 470 -y 470 /home/pi/sbk_client/qr.bmp &
 
 exit 0
