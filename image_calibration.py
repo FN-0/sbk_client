@@ -2,7 +2,7 @@ import cv2
 import sys
 import numpy as np
 
-args = np.load('cameramtx&distcoef.npz')
+args = np.load('/home/pi/sbk_client/cameramtx&distcoef.npz')
 mtx, dist = args['arr_0'], args['arr_1']
 
 img = cv2.imread(sys.argv[1])
