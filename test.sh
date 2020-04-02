@@ -28,7 +28,7 @@ python /home/pi/sbk_client/algorithm_blo_detection_new.py /home/pi/sbk_client/te
 
 filename="/home/pi/sbk_client/res.txt"
 res=$(cat ${filename})
-qrencode -s 4 -o qr.bmp "${res}"
+qrencode -s 4 -o /home/pi/sbk_client/qr.bmp "${res}"
 feh -Y -x -m -H 480 -W 800 --bg /home/pi/sbk_client/bg.png -a 0 -E 470 -y 470 /home/pi/sbk_client/qr.bmp &
 
 exit 0
