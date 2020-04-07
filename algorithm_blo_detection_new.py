@@ -1,5 +1,6 @@
 import sys
 import cv2
+import math
 import json
 import numpy as np
 from PIL import Image
@@ -7,16 +8,23 @@ from block_detector import unsharp_mask, qr_detector, update_radian
 from block_detector import update_scale, get_point_by_radian
 from block_position import relative_position_photo
 
+BLO_ = (
+  (151, 162, 149),
+  #(148, 111, 45),
+  (40, 86, 60),
+  (16, 50, 29),
+  (2, 25, 22)
+)
+
 BLO = (
-    (151, 162, 149),
-    #(148, 111, 45),
-    (40, 86, 60),
-    (16, 50, 29),
-    (2, 25, 22)
+  (216, 205, 123),
+  (142, 208, 180),
+  (76, 171, 129),
+  (33, 126, 131)
 )
 
 rst_lst = {
-    'BLO': ('-', '+', '++', '+++')
+  'BLO': ('-', '+', '++', '+++')
 }
 
 def std(lst, x):
@@ -54,9 +62,18 @@ def color_approximation(src, dst):
   r = np.arccos(x)*(180/np.pi)
   return r
 
+def distance(c1, c2):
+  (r1,g1,b1) = c1
+  (r2,g2,b2) = c2
+  return math.sqrt((r1 - r2)**2 + (g1 - g2) ** 2 + (b1 - b2) **2)
+
 def most_approx(src_color, dst_color):
-  approx = [color_approximation(src_color, dst) for dst in dst_color]
+  approx = [distance(src_color, dst) for dst in dst_color]
   return approx.index(min(approx))
+
+def approx_seq(src_color, dst_color):
+  approx = [distance(src_color, dst) for dst in dst_color]
+  return [x for _,x in sorted(zip(approx,[0,1,2,3]))]
 
 def get_rgb_in_square(im, box):
   """Get rgb data from the square region.
@@ -211,9 +228,13 @@ def main():
       box_list = pos2box(pos_list, square_size, square_size)
       draw_rect(img_path, box_list)
       rgb_data = read_boxes_rgb(img, box_list)
+      print(rgb_data)
+      f.write(str(rgb_data)+'\n')
       results = []
       for val in rgb_data:
         results.append(most_approx(val, BLO))
+        print(approx_seq(val, BLO))
+        f.write(str(approx_seq(val, BLO))+'\n')
       results2blocks(results, f)
       f.write(str(results2report(results)))
   f.close()
