@@ -8,26 +8,11 @@ from block_detector import unsharp_mask, qr_detector, update_radian
 from block_detector import update_scale, get_point_by_radian
 from block_position import relative_position_photo
 
-BLO_ = (
-  (151, 162, 149),
-  #(148, 111, 45),
-  (40, 86, 60),
-  (16, 50, 29),
-  (2, 25, 22)
-)
-
-BLO_p = (
-  (216, 205, 123),
-  (142, 208, 180),
-  (76, 171, 129),
-  (33, 126, 131)
-)
-
 BLO = (
-  (127, 121, 105),
-  (70, 95, 90),
-  (50, 70, 60),
-  (24, 50, 45)
+  (255, 251, 195),
+  (189, 236, 225),
+  (109, 180, 179),
+  (34, 141, 164)
 )
 
 rst_lst = {
