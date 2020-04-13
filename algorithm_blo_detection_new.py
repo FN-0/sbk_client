@@ -9,10 +9,10 @@ from block_detector import update_scale, get_point_by_radian
 from block_position import relative_position_photo
 
 BLO = (
-  (255, 251, 195),
-  (189, 236, 225),
-  (109, 180, 179),
-  (34, 141, 164)
+  (252, 255, 236),
+  (207, 247, 238),
+  (147, 202, 190),
+  (98, 162, 167)
 )
 
 rst_lst = {
