@@ -174,17 +174,17 @@ def draw_rect(img_path, box_list):
   cv2.imwrite('test.jpg', img)
 
 def results2blocks(results, f):
-  f.write(str(results[:7])+'\n')
-  f.write(str(results[7:14])+'\n')
-  f.write(str(results[14:21])+'\n')
-  f.write(str(results[21:23])+'         '+str(results[23:25])+'\n')
-  f.write(str(results[25:27])+'         '+str(results[27:29])+'\n')
-  f.write(str(results[29:31])+'         '+str(results[31:33])+'\n')
-  f.write(str(results[33:35])+'         '+str(results[35:37])+'\n')
-  f.write(str(results[37:39])+'         '+str(results[39:41])+'\n')
-  f.write(str(results[41:48])+'\n')
-  f.write(str(results[48:55])+'\n')
-  f.write(str(results[55:62])+'\n')
+  f.write(str(results[:10])+'\n')
+  #f.write(str(results[10:14])+'\n')
+  #f.write(str(results[14:21])+'\n')
+  #f.write(str(results[21:23])+'         '+str(results[23:25])+'\n')
+  #f.write(str(results[25:27])+'         '+str(results[27:29])+'\n')
+  #f.write(str(results[29:31])+'         '+str(results[31:33])+'\n')
+  #f.write(str(results[33:35])+'         '+str(results[35:37])+'\n')
+  #f.write(str(results[37:39])+'         '+str(results[39:41])+'\n')
+  #f.write(str(results[41:48])+'\n')
+  #f.write(str(results[48:55])+'\n')
+  #f.write(str(results[55:62])+'\n')
 
 def results2report(results):
   blo_data = rst_lst['BLO'][max(results)]
