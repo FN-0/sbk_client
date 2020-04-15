@@ -152,31 +152,31 @@ def draw_point(img_path, relative_position_1, SCALE, RADIAN, src_point):
 
 def main():
 
-  '''yaxis = 1947
+  yaxis = 595
   points = (
-    (839, yaxis),
-    (956, yaxis),
-    (1073, yaxis),
-    (1190, yaxis),
-    (1307, yaxis),
-    (1425, yaxis),
-    (1541, yaxis),
+    (185, yaxis),
+    (247, yaxis-2),
+    (312, yaxis-2),
+    (375, yaxis-2),
+    (438, yaxis-2),
+    (502, yaxis-2),
+    (565, yaxis-2),
   )
-  p1 = (648.5, 713.5)
+  p1 = (97.5, 1274.5)
   i = 1
   for p in points:
     RADIAN = update_radian(p1, p)
     dist = distance(p, p1)
-    print("'b43%d' : {'rad' : %.3f, 'dist': %.3f}," % (i, RADIAN, dist))
+    print("'b11%d' : {'rad' : %.3f, 'dist': %.3f}," % (i, RADIAN, dist))
     i += 1
-  input()'''
+  input()
 
   # data initialize
-  DIST = [DIST_Y, DIST_X] = (570, 618)
+  DIST = [DIST_Y, DIST_X] = (544, 570)
   SCALE = [SCALE_Y, SCALE_X] = (1, 1)
   RADIAN = 0
-  STEP_SIZE = 50
-  SQUARE_SIZE = 150
+  STEP_SIZE = 30
+  SQUARE_SIZE = 170
 
   img_path = sys.argv[1]
   img = cv2.imread(img_path)

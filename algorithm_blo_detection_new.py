@@ -193,7 +193,7 @@ def results2report(results):
 
 def main():
   # data initialize
-  DIST = [DIST_Y, DIST_X] = (250, 256)
+  DIST = [DIST_Y, DIST_X] = (544, 570)
   SCALE = [SCALE_Y, SCALE_X] = (1, 1)
   RADIAN = 0
   STEP_SIZE = 30
