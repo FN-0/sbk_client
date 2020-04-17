@@ -74,11 +74,7 @@ relative_position_photo = {
 }
 
 def main():
-  BLOCK_SEQ = [
-      [1]
-    [2,  3]
-      [4]
-  ]
+  pass
 
 if __name__ == "__main__":
   main()
