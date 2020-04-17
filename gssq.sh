@@ -12,7 +12,7 @@ done
 
 git pull
 
-notify-send 网络连接成功
+notify-send 网络连接成功!
 
 # 获取网络时间
 sudo ntpdate 0.cn.pool.ntp.org
