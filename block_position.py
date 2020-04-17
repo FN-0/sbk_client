@@ -61,7 +61,7 @@ relative_position_1 = {
   'b434' : {'rad' : 1.157, 'dist': 1347.125},
   'b435' : {'rad' : 1.080, 'dist': 1398.265},
   'b436' : {'rad' : 1.009, 'dist': 1457.558},
-  'b437' : {'rad' : 0.944, 'dist': 1522.524}
+  'b437' : {'rad' : 0.944, 'dist': 1522.524},
 }
 
 relative_position_photo = {
