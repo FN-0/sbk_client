@@ -10,7 +10,7 @@ while [ $? -ne 0 ]; do
 	ping -c 1 121.40.169.248 > /dev/null 2>&1
 done
 
-git pull
+#git pull
 
 notify-send 网络连接成功!
 
