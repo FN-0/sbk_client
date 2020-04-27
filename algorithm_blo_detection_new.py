@@ -203,34 +203,22 @@ def main():
   img = cv2.imread(img_path)
   #img = unsharp_mask(img)
   posn = qr_detector(img, STEP_SIZE, SQUARE_SIZE)
-  print(posn)
-
-  f = open('/home/pi/sbk_client/res.txt', 'w')
-  #f = open('res.txt', 'w')
-  f.write(str(posn)+'\n')
 
   if len(posn) == 4:
     square_size = 4
     img = Image.open(img_path).convert('RGB')
     SCALE = update_scale(posn, DIST)
     RADIAN = update_radian(posn[b'1'], posn[b'2'])
-    f.write(str(RADIAN)+'\n')
     pos_list = get_position(img_path, relative_position_photo, SCALE, RADIAN, posn[b'1'])
     if pos_list:
       box_list = pos2box(pos_list, square_size, square_size)
       draw_rect(img_path, box_list)
       rgb_data = read_boxes_rgb(img, box_list)
-      print(rgb_data)
-      f.write(str(rgb_data)+'\n')
       results = []
       for val in rgb_data:
         results.append(most_approx(val, BLO))
-        print(approx_seq(val, BLO))
-        f.write(str(approx_seq(val, BLO))+'\n')
-      results2blocks(results, f)
-      f.write(str(results2report(results)))
-  f.close()
-  print('Done.')
+    print(results2report(results))
+  
 
 if __name__ == "__main__":
   main()
