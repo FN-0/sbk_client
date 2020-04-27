@@ -64,16 +64,8 @@ fi
 mv ${image_name1} images/
 cd images/
 
-python /home/pi/sbk_client/image_calibration.py ${image_name1}
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/blo`
 
-python /home/pi/sbk_client/algorithm_blo_detection_new.py "calibresult.png"
-
-filename="/home/pi/sbk_client/block_pos.txt"
-pos_data=`head -n 1 ${filename}`
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/${image_name1}" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
-
-filename="/home/pi/sbk_client/res.txt"
-res=$(cat ${filename})
 qrencode -s 4 -o /home/pi/sbk_client/qr.bmp "${res}"
 feh -Y -x -m -H 480 -W 800 --bg /home/pi/sbk_client/bg.png -a 0 -E 470 -y 470 /home/pi/sbk_client/qr.bmp &
 
