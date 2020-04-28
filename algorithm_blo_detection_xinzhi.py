@@ -242,9 +242,9 @@ def main():
       results = []
       for val in rgb_data:
         results.append(most_approx(val, BLO))
-    print(results2json(results))
+    print(results2report(results))
   else:
-    print(posn)
+    print('{"BLO": ""}')
   
 
 if __name__ == "__main__":
