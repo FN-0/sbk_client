@@ -26,16 +26,6 @@ image_name1=${mac_addr}${datetime1}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
-unclutter -idle 0.01 -root &
-
-# 检查摄像头是否存在
-if [ ! -c "/dev/video0" ]; then
-	echo "no cam"
-	notify-send -t 0 设备连接断开
-	python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-	exit 0
-fi
-
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
@@ -47,12 +37,6 @@ cd ${clientpath}
 if [ ! -d "./images" ]; then
 	mkdir images/
 fi
-
-notify-send  正在拍摄
-# 拍摄图片
-# https://github.com/twam/v4l2grab
-#./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
-#./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
 
 res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/test/b827ebd33d8920200427111111.jpg"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/blo`
 
