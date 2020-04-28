@@ -23,16 +23,6 @@ image_name1=${mac_addr}${datetime1}.jpg
 # 客户端存放位置
 clientpath="/home/pi/sbk_client/"
 
-unclutter -idle 0.01 -root &
-
-# 检查摄像头是否存在
-if [ ! -c "/dev/video0" ]; then
-	echo "no cam"
-	notify-send -t 0 设备连接断开
-	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-	exit 0
-fi
-
 # 检查路径是否存在
 if [ ! -x ${clientpath} ]; then
 	echo "No such dir"
@@ -45,28 +35,9 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
-notify-send  正在扫描
-# 拍摄图片
-# https://github.com/twam/v4l2grab
-./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
-./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
-
-# 上传图片
-# 如果上传失败显示含有上传失败文字的二维码
-# 如果上传成功显示含有url的二维码，并且重试之前上传失败的图片
-if [ ! -f ${image_name1} ]; then
-	echo "Image does not exist."
-	notify-send -t 0 图片未扫描成功
-	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
-	exit 0
-fi
-
-mv ${image_name1} images/
-cd images/
-
 #python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/get_blocks_position.py /home/pi/sbk_client/images/b827ebb0316220200428172444.jpg ${datetime1} 
+python /home/pi/sbk_client/get_blocks_position.py /home/pi/sbk_client/test/b827ebb0316220200428172444.jpg ${datetime1} 
 
 filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
@@ -78,7 +49,7 @@ fi
 
 echo "Start uploading."
 notify-send  正在处理
-res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/images/b827ebb0316220200428172444.jpg" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
+res=`curl --max-time 180 -F "picture=@/home/pi/sbk_client/test/b827ebb0316220200428172444.jpg" -F "coordinates=${pos_data}"  http://deviceapi.fun-med.cn/device/v2/upload/fluid/14items`
 echo ${res}
 # 使用程序返回值作为上传成功或失败的依据
 if [[ "${res}" == "" ]]; then
