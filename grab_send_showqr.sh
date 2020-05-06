@@ -112,13 +112,13 @@ cd images/
 echo "Start uploading."
 notify-send  正在上传
 res=`curl --max-time 180 -F "picture1=@/home/pi/sbk_client/images/${image_name1}" -F "picture2=@/home/pi/sbk_client/images/${image_name2}" -F "picture3=@/home/pi/sbk_client/images/${image_name3}" -F "picture4=@/home/pi/sbk_client/images/${image_name4}" -F "picture5=@/home/pi/sbk_client/images/${image_name5}" http://deviceapi.fun-med.cn/device/v1/upload/urine/14items`
-echo ${res}
+echo "${res}"
 #echo ${res:0:1}
 #subl=${res#*:}
 #subr=${subl%%,*}
 #ret=$?
 # 使用程序返回值作为上传成功或失败的依据
-if [[ "${res}" == "" ]]; then
+if [[ "${res:0:1}" == "<" ]]; then
 	cd ..
 	echo "upload failed"
 	qrencode -s 6 -o qr.bmp "上传失败"
@@ -129,7 +129,6 @@ if [[ "${res}" == "" ]]; then
 	sleep 300
 	shutdown now
 elif [[ "${res}" != "" ]]; then
-	echo "qrcode"
 	cd ..
 	# display qr code
 	#qrencode -s 6 -o qr.bmp "http://www.sup-heal.com/#/health/healthUpload?deviceNo=${mac_addr}&midDate=${mac_addr}${datetime1}${datetime2}${datetime3}${datetime4}${datetime5}"
