@@ -171,7 +171,7 @@ def draw_rect(img_path, box_list):
     x1, y1 = box[0], box[1]
     x2, y2 = box[0]+box[2], box[1]+box[3]
     cv2.rectangle(img, (x1, y1), (x2, y2), (0,0,255), 1)
-  cv2.imwrite('test.jpg', img)
+  cv2.imwrite('./python/xinzhi/test.jpg', img)
 
 def results2blocks(results, f):
   f.write(str(results[:10])+'\n')
@@ -187,7 +187,7 @@ def results2blocks(results, f):
   #f.write(str(results[55:62])+'\n')
 
 def calibration(img_path):
-  args = np.load('./cameramtx&distcoef.npz')
+  args = np.load('./python/xinzhi/cameramtx&distcoef.npz')
   mtx, dist = args['arr_0'], args['arr_1']
 
   img = cv2.imread(img_path)
@@ -200,7 +200,8 @@ def calibration(img_path):
   # crop the image
   x,y,w,h = roi
   dst = dst[y:y+h, x:x+w]
-  cv2.imwrite('calibresult.png',dst)
+  
+  cv2.imwrite('./python/xinzhi/calibresult.png',dst)
 
 def results2report(results):
   blo_data = rst_lst['BLO'][max(results)]
@@ -225,19 +226,19 @@ def main():
 
   img_path = sys.argv[1]
   calibration(img_path)
-  img = cv2.imread('calibresult.png')
+  img = cv2.imread('./python/xinzhi/calibresult.png')
   #img = unsharp_mask(img)
   posn = qr_detector(img, STEP_SIZE, SQUARE_SIZE)
 
   if len(posn) == 4:
     square_size = 4
-    img = Image.open('calibresult.png').convert('RGB')
+    img = Image.open('./python/xinzhi/calibresult.png').convert('RGB')
     SCALE = update_scale(posn, DIST)
     RADIAN = update_radian(posn[b'1'], posn[b'2'])
-    pos_list = get_position('calibresult.png', relative_position_photo, SCALE, RADIAN, posn[b'1'])
+    pos_list = get_position('./python/xinzhi/calibresult.png', relative_position_photo, SCALE, RADIAN, posn[b'1'])
     if pos_list:
       box_list = pos2box(pos_list, square_size, square_size)
-      draw_rect('calibresult.png', box_list)
+      draw_rect('./python/xinzhi/calibresult.png', box_list)
       rgb_data = read_boxes_rgb(img, box_list)
       results = []
       for val in rgb_data:
