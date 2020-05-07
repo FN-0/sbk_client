@@ -55,13 +55,13 @@ echo ${res}
 if [[ "${res}" == "" ]]; then
 	cd ..
 	echo "upload failed"
-	qrencode -s 6 -o qr.bmp "上传失败"
+	qrencode -s 6 -o /home/pi/sbk_client/qr.bmp "上传失败"
 	# feh 显示二维码
 	feh -Y -F -m -H 480 -W 800 --bg /home/pi/sbk_client/bg.png -a 0 -E 470 -y 470 /home/pi/sbk_client/qr.bmp &
 elif [[ "${res}" != "" ]]; then
 	echo "qrcode"
 	cd ..
-	qrencode -s 4 -o qr.bmp "${res}"
+	qrencode -s 4 -o /home/pi/sbk_client/qr.bmp "${res}"
 	feh -Y -x -m -H 480 -W 800 --bg /home/pi/sbk_client/bg.png -a 0 -E 470 -y 470 /home/pi/sbk_client/qr.bmp &
 fi
 
