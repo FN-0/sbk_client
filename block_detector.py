@@ -30,7 +30,6 @@ def has_black_px(sqa, min_amount_of_black_px):
     return False
 
 def is_black_beside(th, pos, square_size, min_amount_of_black_px):
-  # 如果周围的框内都有黑色，则取其位置
   udlr = {}
   x, y = pos
   u = th[x-square_size:x, y:y +square_size]
@@ -52,23 +51,17 @@ def detect_processor(th, step_size, square_size, min_amount_of_black_px):
   detect_block_pos = []
   while True:
     pos = [x, y]
-    # 移动到边界后结束
     if y + step_size > row:
       break
-    # 得到本次循环的区块数据
     sqa = th[x:x+square_size,y:y+square_size]
-    # 发现一定量的黑色像素开始检测
     if has_black_px(sqa, min_amount_of_black_px):
       around_tect_sig = True
       times_no_black = 0
-    # 检测不到周围黑色超过一定次数后关闭检测
     if times_no_black > 10 and around_tect_sig == True:
       around_tect_sig = False
-    # 如果检测信号开启，区块全白，周围全有黑色则记录位置
     if around_tect_sig == True and is_all_white(sqa):
       if is_black_beside(th, pos, square_size, min_amount_of_black_px):
         detect_block_pos.append(pos)
-    # 每次循环需要更新变量
     if x + step_size <= col:
       x = x + step_size
     else:
@@ -78,7 +71,6 @@ def detect_processor(th, step_size, square_size, min_amount_of_black_px):
   return detect_block_pos
 
 def merge_near_rect(origin_list, square_size, outcome=[]):
-# 合并相近的检测框，取平均值，递归调用
   group_pos = outcome
   group_list = [origin_list[0]]
   for pos in origin_list[1:]:
@@ -120,11 +112,7 @@ def position_in_origin_img(pos_list, margin, square_size):
   return real_pos_list
 
 def main():
-  # 按像素移动框体
-  # 在框内检测到黑色时才开始判断
-  # 检测周围是否有黑色时应取一个值作为最小黑色像素出现值以减少干扰
-  # 检测周围黑色false超过一定次数后关闭检测，直到出现一定的黑色像素
-  step_size = 2 # 检测框每次移动多少像素
+  step_size = 2
   square_size = 25 # 80px for phone, 15px for 1080p
   min_amount_of_black_px = 60 # just test
   margin = 500
