@@ -4,7 +4,7 @@ from __future__ import print_function
 import sys
 import numpy as np
 from PIL import Image, ImageDraw
-from easy_function import std, make_int_aver, blk_lst_maker
+from utils import std, make_int_aver, blk_lst_maker
 from src_data import boxesT as boxes
 
 def get_rgb_in_square(im, box):
