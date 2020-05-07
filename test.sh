@@ -37,7 +37,7 @@ fi
 
 #python /home/pi/sbk_client/motor_controller.py 15 16 3 3 &
 
-python /home/pi/sbk_client/get_blocks_position.py /home/pi/sbk_client/test/b827ebb0316220200428172444.jpg ${datetime1} 
+python /home/pi/sbk_client/block_detector.py /home/pi/sbk_client/test/b827ebb0316220200428172444.jpg
 
 filename="/home/pi/sbk_client/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
