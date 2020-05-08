@@ -1,9 +1,10 @@
 import sys
 import cv2
 import numpy as np
+from src_data import boxesT as boxes
 
 def get_threshold(img):
-  thres = 50
+  thres = 100
   img = cv2.medianBlur(img, 5)
   ret, th = cv2.threshold(img, thres, 255, cv2.THRESH_BINARY)
   return th
@@ -91,7 +92,7 @@ def draw_rect(img, detect_block_pos, square_size, margin, file_name):
     x, y = pos[0], pos[1]
     #x += margin
     start_point = (x, y)
-    end_point = (x+square_size, y+square_size)
+    end_point = (x+20, y+15)
     color = (0, 0, 255)
     thickness = 1
     img = cv2.rectangle(img, start_point, end_point, color, thickness) 
@@ -111,9 +112,21 @@ def position_in_origin_img(pos_list, margin, square_size):
     real_pos_list.append(pos)
   return real_pos_list
 
+def pos_boxes(pos_list, boxes):
+  head = min(y[1] for y in pos_list)
+  e = [x for x in pos_list if head in x][0]
+  X = pos_list[pos_list.index(e)][0] - boxes[0][0]
+  Y = head - boxes[0][1]
+  new_boxes = []
+  for box in boxes:
+    box[0] += X
+    box[1] += Y
+    new_boxes.append(box)
+  return new_boxes
+
 def main():
   step_size = 2
-  square_size = 25 # 80px for phone, 15px for 1080p
+  square_size = 18 # 80px for phone, 15px for 1080p
   min_amount_of_black_px = 60 # just test
   margin = 500
 
@@ -127,6 +140,7 @@ def main():
   if detect_block_pos:
     positions = merge_near_rect(detect_block_pos, square_size)
     positions = position_in_origin_img(positions, margin, square_size)
+    positions = pos_boxes(positions, boxes)
     print(positions)
     if len(positions) == 14:
       of.write(str(positions))
