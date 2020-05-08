@@ -123,18 +123,20 @@ def main():
   th = get_threshold(img)
   detect_block_pos = detect_processor(
     th, step_size, square_size, min_amount_of_black_px)
+  of = open('block_pos.txt', 'w')
   if detect_block_pos:
     positions = merge_near_rect(detect_block_pos, square_size)
     positions = position_in_origin_img(positions, margin, square_size)
     print(positions)
-    of = open('block_pos.txt', 'w')
-    if len(positions):
+    if len(positions) == 14:
       of.write(str(positions))
     else:
       of.write("0")
     of.close()
     img = cv2.imread(img_path)
     draw_rect(img, positions, square_size, margin, 'position.jpg')
+  else:
+    of.write("0")
 
 if __name__ == "__main__":
   main()
