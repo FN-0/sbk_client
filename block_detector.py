@@ -92,7 +92,7 @@ def draw_rect(img, detect_block_pos, square_size, margin, file_name):
     x, y = pos[0], pos[1]
     #x += margin
     start_point = (x, y)
-    end_point = (x+20, y+15)
+    end_point = (x+15, y+10)
     color = (0, 0, 255)
     thickness = 1
     img = cv2.rectangle(img, start_point, end_point, color, thickness) 
