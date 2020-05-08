@@ -72,7 +72,7 @@ filename="/home/pi/sbk_client/images/block_pos.txt"
 pos_data=`head -n 1 ${filename}`
 
 if [[ "${pos_data}" == "0" ]]; then
-    notify-send -t 0 试纸位置错误
+    notify-send -t 0 检测失败
 	#feh -F "${datetime1}.png"
 	#python /home/pi/sbk_client/motor_controller.py 15 16 3 3
     exit 0
@@ -86,7 +86,7 @@ echo ${res}
 if [[ "${res}" == "" ]]; then
 	cd ..
 	echo "upload failed"
-	qrencode -s 6 -o /home/pi/sbk_client/qr.bmp "上传失败"
+	qrencode -s 6 -o /home/pi/sbk_client/qr.bmp "检测失败"
 	# feh 显示二维码
 	feh -Y -F -m -H 480 -W 800 --bg /home/pi/sbk_client/bg.png -a 0 -E 470 -y 470 /home/pi/sbk_client/qr.bmp &
 	# 5分钟后自动关机
