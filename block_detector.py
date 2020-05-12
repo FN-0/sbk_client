@@ -101,7 +101,7 @@ def update_scale(pos4, DIST):
   point2 = pos4[b'2']
   point3 = pos4[b'3']
   point4 = pos4[b'4']
-  dist_y = distance(point1, point3)
+  dist_y = distance(point3, point4)
   dist_x = distance(point1, point2)
 
   scale_y = dist_y / DIST[0]

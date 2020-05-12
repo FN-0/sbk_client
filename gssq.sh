@@ -48,7 +48,7 @@ if [ ! -d "./images" ]; then
 	mkdir images/
 fi
 
-notify-send  正在拍摄
+notify-send  正在分析
 # 拍摄图片
 # https://github.com/twam/v4l2grab
 ./v4l2grab -d/dev/video0 -W1920 -H1080  -q100 -m -o${image_name1}
